@@ -20,7 +20,28 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        // displayTextBlock.Text = "Hello, welcome to WPF!";
+        InitializeDatabase();
+    }
+
+    private void InitializeDatabase()
+    {
+        string connectionString = "Data Source=MyDatabase.db; Version=3;";
+        using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+        {
+            conn.Open();
+            string sql = @"
+            CREATE TABLE IF NOT EXISTS Users (
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                Name TEXT NOT NULL,
+                Email TEXT NOT NULL
+            );";
+        
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+            {
+                cmd.ExecuteNonQuery();
+            }
+            conn.Close();
+        }
     }
     private void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
@@ -32,8 +53,8 @@ public partial class MainWindow : Window
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
             {
-                cmd.Parameters.AddWithValue("@Name", nameTextBox.Text);
-                cmd.Parameters.AddWithValue("@Email", emailTextBox.Text);
+                cmd.Parameters.AddWithValue("@Name", NameTextBox.Text);
+                cmd.Parameters.AddWithValue("@Email", EmailTextBox.Text);
                 cmd.ExecuteNonQuery();
             }
             conn.Close();
