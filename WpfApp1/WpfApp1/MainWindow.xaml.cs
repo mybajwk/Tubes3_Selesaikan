@@ -7,6 +7,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Microsoft.Win32;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
@@ -41,6 +42,16 @@ public partial class MainWindow : Window
                 cmd.ExecuteNonQuery();
             }
             conn.Close();
+        }
+    }
+    private void OpenImageButton_Click(object sender, RoutedEventArgs e)
+    {
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+        openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.bmp)|*.png;*.jpeg;*.jpg;*.bmp|All files (*.*)|*.*";
+        if (openFileDialog.ShowDialog() == true)
+        {
+            BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
+            DisplayImage.Source = bitmap;
         }
     }
     private void SubmitButton_Click(object sender, RoutedEventArgs e)
