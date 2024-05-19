@@ -21,9 +21,9 @@ public class LongestCommonSubsequence {
         return dp[len1, len2];
     }
 
-    public static void Main() {
-        string str1 = "ABCBDAB";
-        string str2 = "BDCABA";
-        Console.WriteLine("LCS Length: " + Calculate(str1, str2));
-    }
+    // public static void Main() {
+    //     string str1 = "ABCBDAB";
+    //     string str2 = "BDCABA";
+    //     Console.WriteLine("LCS Length: " + Calculate(str1, str2));
+    // }
 }

@@ -16,14 +16,14 @@ public class HammingDistance {
         return distance;
     }
 
-    public static void Main() {
-        string str1 = "karat";
-        string str2 = "karma";
-        try {
-            int distance = Calculate(str1, str2);
-            Console.WriteLine("Hamming Distance: " + distance);
-        } catch (ArgumentException e) {
-            Console.WriteLine(e.Message);
-        }
-    }
+    // public static void Main() {
+    //     string str1 = "karat";
+    //     string str2 = "karma";
+    //     try {
+    //         int distance = Calculate(str1, str2);
+    //         Console.WriteLine("Hamming Distance: " + distance);
+    //     } catch (ArgumentException e) {
+    //         Console.WriteLine(e.Message);
+    //     }
+    // }
 }

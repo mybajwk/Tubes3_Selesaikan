@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Windows;
+using Selesaikan.Models;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -23,6 +24,9 @@ namespace Selesaikan
             InitializeComponent();
             SetInitialImage();
             this.currentActiveAlgorithm = "KMP";
+            _database = new Database.Database();
+            List<SidikJari> dataSidikJari = _database.GetSidikJari();
+            Console.WriteLine(dataSidikJari[0].Nama);
             UpdateButtonColors();
         }
 
