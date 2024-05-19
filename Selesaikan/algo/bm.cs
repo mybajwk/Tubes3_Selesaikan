@@ -136,7 +136,6 @@ public class BoyerMooreMatcher {
     public static void Main() {
         // Load an image
         string imagePath = "tes.bmp";
-        string alterPath = "tes_alter.bmp";
 
         Bitmap original = new Bitmap(imagePath);
         
