@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Selesaikan")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac94a9407e995775ed3da7b8ce90a7ebb6d08dfb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e872753b8e882015532e5c2af7c1affe8b24051")]
 [assembly: System.Reflection.AssemblyProductAttribute("Selesaikan")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Selesaikan")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
