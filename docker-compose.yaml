@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      selesaikan-network:
+        aliases:
+          - adminer.selesaikan.local
+
+  mysql-service:
+    image: mysql:latest
+    container_name: mysql-service
+    hostname: mysql-service
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "selesaikan"
+      MYSQL_DATABASE: "selesaikan-db"
+      MYSQL_USER: "selesaikan"
+      MYSQL_PASSWORD: "selesaikan"
+    volumes:
+      - "./Selesaikan/mysql-service/data:/var/lib/mysql"
+      - "./Selesaikan/mysql-service/init/init.sql:/docker-entrypoint-initdb.d/init.sql"
+    ports:
+      - "9001:3306"
+    networks:
+      selesaikan-network:
+        aliases:
+          - mysql-service.selesaikan.local
+    command:
+      - mysqld
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+networks:
+  selesaikan-network:
