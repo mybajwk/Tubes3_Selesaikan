@@ -76,7 +76,7 @@ public class BoyerMooreMatcher {
     static string BitmapToASCII(Bitmap Binary,int row,int col){
         int widthBox = col*8;
         int heightBox = row;
-
+        int totalPixel = widthBox*heightBox;
         StringBuilder sb = new StringBuilder();
 
         for(int i=0;i<Binary.Height;i+=heightBox){
@@ -93,13 +93,13 @@ public class BoyerMooreMatcher {
                         buf.Append(Binary.GetPixel(k,l));
                     }
                 }
-                for(int k=0;k<30;k++){
-                    string byteString = buf.Substring(k);
+                for(int k=0;k<totalPixel;k+=8){
+                    string byteString = buf.Substring(k,8);
+                    sb.Append(ConvertToBinary.ToChar(Convert.ToInt32(byteString,2)));
                 }
-                // string byteString = binaryString.Substring(i, 8);
-                // sb.Append(Convert.ToChar(Convert.ToInt32(byteString, 2)));
             }
         }
+        return sb.ToString();
     }
 
     static string GetBinaryString(Bitmap binary)
