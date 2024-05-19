@@ -45,7 +45,7 @@ namespace Selesaikan
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Select an image";
-            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.BMP)|*.png;*.jpeg;*.jpg;*.BMP";
 
             if (openFileDialog.ShowDialog() == true)
             {
@@ -64,6 +64,12 @@ namespace Selesaikan
         {
             currentActiveAlgorithm = "BM";
             UpdateButtonColors();
+        }
+        
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+         // do something
+         outputImage.Source = displayImage.Source;
         }
 
         private void UpdateButtonColors()
@@ -87,6 +93,35 @@ namespace Selesaikan
                     break;
             }
         }
+        
+        private void Image_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effects = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None;
+            }
+            e.Handled = true;
+        }
 
+        private void Image_Drop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files != null && files.Length > 0)
+            {
+                string file = files[0];
+                if (file.ToLower().EndsWith(".bmp"))
+                {
+                    ((Image)sender).Source = new BitmapImage(new Uri(file));
+                }
+                else
+                {
+                    MessageBox.Show("Please drop a BMP file.");
+                }
+            }
+        }
     }
 }
