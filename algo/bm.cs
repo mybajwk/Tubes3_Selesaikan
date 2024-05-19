@@ -65,8 +65,7 @@ public class BoyerMooreMatcher {
                 Color color = grayscale.GetPixel(i, j);
                 int value = color.R < 128 ? 0 : 255;
                 Color binaryColor = Color.FromArgb(value, value, value);
-                int binaryValue = color.R == 0 ? 0 : 1;
-                binary.SetPixel(i, j, binaryValue);
+                binary.SetPixel(i, j, binaryColor);
             }
         }
 
@@ -80,22 +79,24 @@ public class BoyerMooreMatcher {
         StringBuilder sb = new StringBuilder();
 
         for(int i=0;i<Binary.Height;i+=heightBox){
-            if(Binary.Height-i<rowBox){
+            if(i+heightBox<Binary.Height){
                 break;
             }
             for(int j=0;j<Binary.Width;j+=widthBox){
-                if(Binary.Width-j<heightBox){
+                if(j+widthBox<Binary.Width){
                     break;
                 }
-                stringBuilder buf = new stringBuilder();
+                StringBuilder buf = new StringBuilder();
                 for(int k=i;k<i+heightBox;k++){
                     for(int l=j;l<j+widthBox;l++){
-                        buf.Append(Binary.GetPixel(k,l));
+                        Color color = Binary.GetPixel(k,l);
+                        int binaryValue = color.R == 0 ? 0 : 1;
+                        buf.Append(binaryValue);
                     }
                 }
                 for(int k=0;k<totalPixel;k+=8){
-                    string byteString = buf.Substring(k,8);
-                    sb.Append(ConvertToBinary.ToChar(Convert.ToInt32(byteString,2)));
+                    string byteString = buf.ToString().Substring(k,8);
+                    sb.Append(Convert.ToChar(Convert.ToInt32(byteString,2)));
                 }
             }
         }
@@ -145,12 +146,9 @@ public class BoyerMooreMatcher {
         // Convert grayscale to binary
         Bitmap binary = ConvertToBinary(grayscale);
 
-        // Print binary values (0 and 1) to the console
-        string binaryString = GetBinaryString(binary);
-
         // Convert binary string to ASCII
-        string asciiString = BinaryStringToASCII(binaryString);
-        Search(asciiString,alterPath);
+        string asciiString = BitmapToASCII(binary,6,5);
+        Console.WriteLine(asciiString);
 
 
     }
