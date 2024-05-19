@@ -8,19 +8,19 @@
     "net8.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\enriq\\.nuget\\packages\\": {}
+    "C:\\Users\\Asus\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Coding\\Tubes\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
+      "projectUniqueName": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
       "projectName": "Selesaikan",
-      "projectPath": "C:\\Coding\\Tubes\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
-      "packagesPath": "C:\\Users\\enriq\\.nuget\\packages\\",
-      "outputPath": "C:\\Coding\\Tubes\\Tubes3_Selesaikan\\Selesaikan\\obj\\",
+      "projectPath": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
+      "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\enriq\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"
@@ -67,7 +67,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

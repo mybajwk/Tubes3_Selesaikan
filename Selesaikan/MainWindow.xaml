@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:Selesaikan"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-   <StackPanel>
-        <Button x:Name="myButton" Content="Click Me" Click="myButton_Click"/>
-        <TextBox x:Name="myTextBox" Height="30"/>
-    </StackPanel>
+    <Grid>
+
+    </Grid>
 </Window>
