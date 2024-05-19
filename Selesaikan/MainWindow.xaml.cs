@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Windows;
+using Selesaikan.Models;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -16,9 +17,13 @@ namespace Selesaikan
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Database.Database _database;
         public MainWindow()
         {
             InitializeComponent();
+            _database = new Database.Database();
+            List<SidikJari> dataSidikJari = _database.GetSidikJari();
+            Console.WriteLine(dataSidikJari[0].Nama);
         }
     }
 }
