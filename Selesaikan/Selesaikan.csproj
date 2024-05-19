@@ -8,4 +8,21 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\background.jpg" />
+    <None Remove="Images\insertimage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\insertimage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\background.jpg" />
+  </ItemGroup>
+
 </Project>
