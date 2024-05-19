@@ -52,9 +52,9 @@ public class KMPMatcher {
         }
     }
 
-    public static void Main() {
-        string text = "ABABDABACDABABCABAB";
-        string pattern = "ABABCABAB";
-        KMPSearch(text, pattern);
-    }
+    // public static void Main() {
+    //     string text = "ABABDABACDABABCABAB";
+    //     string pattern = "ABABCABAB";
+    //     KMPSearch(text, pattern);
+    // }
 }
