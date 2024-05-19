@@ -19,6 +19,7 @@ namespace Selesaikan
     public partial class MainWindow : Window
     {
         private string currentActiveAlgorithm;
+        private Database.Database _database;
         public MainWindow()
         {
             InitializeComponent();
