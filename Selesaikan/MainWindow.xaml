@@ -7,6 +7,25 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Image Panel.ZIndex="-1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="526" Margin="-13,-38,0,0" Width="1067" Source="Images/background.jpg" d:IsLocked="True"/>
+        <Label FontSize="20pt" Content="Biometrics - Selesaikan" Foreground="Azure" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="800" Height="364" Margin="0,60,0,0">
+            <WrapPanel Orientation="Horizontal" Height="300">
+                <Image Margin="20,0,0,0" x:Name="displayImage" Source="Images/insertimage.png" Height="250" Width="250" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Image Margin="10,0,0,0" x:Name="outputImage" Source="Images/insertimage.png" Height="250" Width="250" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <StackPanel Margin="10,0,20,0" Width="230" Height="250" Background="AliceBlue"></StackPanel>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Center" Width="800">
+                <Button x:Name="btnLoadImage" BorderBrush="Aqua" Margin="20,0,0,0" Click="btnLoadImage_Click" Height="33" Width="200" Content="Load Image" Foreground="Black" Background="Azure"/>
+                <Button x:Name="kmpButton" Content="KMP" Width="87.5" Height="33" Margin="20,0,0,0" Click="kmpButton_Click"/>
+                <Button x:Name="bmButton" Content="BM" Width="87.5" Height="33" Margin="0,0,0,0" Click="bmButton_Click"/>
+                <Button x:Name="searchButton" Content="Search" Width="125" Height="33" Margin="20,0,0,0"/>
+                <StackPanel Width="200" Margin="30,0,0,0">
+                    <Label Content="Search time               : xxx ms" Foreground="Azure" FontFamily="Comic Sans MS"></Label>
+                    <Label Content="Similarity Percentage : xxx %" Foreground="Azure" FontFamily="Comic Sans MS"></Label>
+                </StackPanel>
+            </WrapPanel>
+        </StackPanel>
     </Grid>
+
 </Window>
