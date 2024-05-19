@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Selesaikan.Models
+{
+    public class Biodata
+    {
+        public string? Nik { get; set; }
+        public string? Nama { get; set; }
+        public string? TempatLahir { get; set; }
+        public string? TanggalLahir { get; set; }
+        public string? JenisKelamin { get; set; }
+        public string? GolonganDarah { get; set; }
+        public string? Alamat { get; set; }
+        public string? Agama { get; set; }
+        public string? StatusPerkawinan { get; set; }
+        public string? Pekerjaan { get; set; }
+        public string? Kewarganegaraan { get; set; }
+    }
+}
