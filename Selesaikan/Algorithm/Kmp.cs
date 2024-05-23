@@ -1,14 +1,15 @@
-using System;
+namespace Selesaikan.Algorithm;
 
-public class KMPMatcher {
-    public static int KMPSearch(string text, string pattern) {
+public class Kmp
+{
+    public static int KmpSearch(string text, string pattern) {
         int n = text.Length;
         int m = pattern.Length;
         int[] lps = new int[m];
         int j = 0; // Length of previous longest prefix suffix
 
         // Preprocess the pattern to calculate lps array
-        ComputeLPSArray(pattern, m, lps);
+        ComputeLpsArray(pattern, m, lps);
 
         int i = 0; // Index for text
         while (i < n) {
@@ -18,8 +19,8 @@ public class KMPMatcher {
             }
             if (j == m) {
                 Console.WriteLine("Found pattern at index " + (i - j));
-                j = lps[j - 1];
-                return 0;
+                // j = lps[j - 1];
+                return i;
             }
             else if (i < n && pattern[j] != text[i]) {
                 if (j != 0)
@@ -31,7 +32,7 @@ public class KMPMatcher {
         return -1;
     }
 
-    private static void ComputeLPSArray(string pattern, int m, int[] lps) {
+    private static void ComputeLpsArray(string pattern, int m, int[] lps) {
         int length = 0;
         int i = 1;
         lps[0] = 0; // lps[0] is always 0
@@ -52,10 +53,4 @@ public class KMPMatcher {
             }
         }
     }
-
-    // public static void Main() {
-    //     string text = "ABABDABACDABABCABAB";
-    //     string pattern = "ABABCABAB";
-    //     KMPSearch(text, pattern);
-    // }
 }
