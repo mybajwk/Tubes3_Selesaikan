@@ -10,6 +10,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using System.Drawing;
+using Selesaikan.Utility;
+using Selesaikan.Algorithm;
+using System.IO;
 
 namespace Selesaikan
 {
@@ -19,17 +23,38 @@ namespace Selesaikan
     public partial class MainWindow : Window
     {
         private string currentActiveAlgorithm;
-        // private Database.Database _database;
+        private BitmapImage entryImage;
+        private Database.Database _database;
+        private SidikJari resultSidikJari;
+        private Biodata resultBiodata;
         public MainWindow() 
         {
             InitializeComponent();
             SetInitialImage();
-            this.currentActiveAlgorithm = "KMP";
-            //_database = new Database.Database();
-            //List<SidikJari> dataSidikJari = _database.GetSidikJari();
-            //Console.Write(dataSidikJari);
-            // Console.WriteLine(dataSidikJari[0].Nama);
+            currentActiveAlgorithm = "KMP";
+            _database = new Database.Database();
             UpdateButtonColors();
+            resultSidikJari = new SidikJari();
+            resultBiodata = new Biodata();
+            entryImage = new BitmapImage();
+        }
+
+        public void setResultSidikJari(SidikJari sidikJari)
+        {
+            resultSidikJari = sidikJari;
+        }
+
+        public void setResultBiodata(Biodata biodata)
+        {
+            resultBiodata = biodata;
+        }
+
+        public void setEntryImage(BitmapImage newEntryImage) {
+            entryImage = newEntryImage;
+        }
+
+        public BitmapImage getEntryImage() {
+            return entryImage;
         }
 
         private void SetInitialImage()
@@ -50,8 +75,14 @@ namespace Selesaikan
 
             if (openFileDialog.ShowDialog() == true)
             {
-                BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(openFileDialog.FileName);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
+                bitmap.EndInit();
                 displayImage.Source = bitmap;
+                setEntryImage(bitmap);
             }
         }
 
@@ -66,11 +97,124 @@ namespace Selesaikan
             currentActiveAlgorithm = "BM";
             UpdateButtonColors();
         }
-        
+
+        private Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
+        {
+            if (bitmapImage.StreamSource == null)
+            {
+                throw new ArgumentNullException("StreamSource is null");
+            }
+
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                bitmapImage.StreamSource.CopyTo(outStream);
+                outStream.Seek(0, SeekOrigin.Begin); // Reset the stream position to the beginning
+                return new Bitmap(outStream);
+            }
+        }
+
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-         // do something
-         outputImage.Source = displayImage.Source;
+            // Taking image from state from image loading
+            BitmapImage entryBitmapImage = getEntryImage();
+            Console.WriteLine(entryBitmapImage);
+
+            // Converting bitmap image type to bitmap
+            Bitmap entryBitmap = BitmapImage2Bitmap(entryBitmapImage);
+
+            // Converting bitmap type to Grayscale image
+            Bitmap entryGrayScaleImage = Utils.ConvertToGrayscale(entryBitmap);
+
+            // Converting grayscale image into binary image
+            Bitmap entryBinaryBitmap = Utils.ConvertToBinary(entryGrayScaleImage);
+
+            // Converting binary bitmap to binary string
+            string entryBinaryString = Utils.GetBinaryString(entryBinaryBitmap);
+
+            // Taking some blocks that is good for comparing
+            string[] goodEntryBinaryString = Utils.GetChoosenBlockBinaryString(entryBinaryString, 32, 8);
+
+            // Change good entry binary string to ascii string
+            List<String> goodEntryAsciiString = [.. goodEntryBinaryString];
+            foreach (string binaryString in goodEntryBinaryString)
+            {
+                goodEntryAsciiString.Add(binaryString);
+            }
+
+            // Comparing good ASCII string to database
+            List<SidikJari> dataSidikJari = _database.GetSidikJari();
+            List<Tuple<SidikJari, int>> sidikJari_HammingDistance = new List<Tuple<SidikJari, int>>();
+            bool isMatchFound = false;
+            foreach (SidikJari sidikJari in dataSidikJari)
+            {
+                if (sidikJari.BerkasCitra != null)
+                {
+                    Bitmap imageSidikJari = new Bitmap(sidikJari.BerkasCitra);
+
+                    // Converting bitmap type to Grayscale image
+                    Bitmap imageSidikJariGrayscale = Utils.ConvertToGrayscale(imageSidikJari);
+
+                    // Converting grayscale image into binary image
+                    Bitmap imageSidikJariBinary = Utils.ConvertToBinary(imageSidikJariGrayscale);
+
+                    // Converting binary bitmap to binary string
+                    string imageSidikJariBinaryString = Utils.GetBinaryString(imageSidikJariBinary);
+
+                    // Converting binary strng into ascii string
+                    string imageSidikJariAscii = Utils.BinaryStringToASCII(imageSidikJariBinaryString);
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        // If the pattern matching found
+                        if (currentActiveAlgorithm == "KMP")
+                        {
+                            if (Kmp.KmpSearch(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
+                            {
+                                isMatchFound = true;
+                            }
+                        } else if (currentActiveAlgorithm == "BM") {
+                            if (Bm.Search(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
+                            {
+                                isMatchFound = true;
+                            }
+                        }
+
+                    }
+
+                    if (isMatchFound)
+                    {
+                        setResultSidikJari(sidikJari);
+                        // set biodata juga
+                        break;
+                    }
+                    else
+                    {
+                        int leastHammingDistance = 9999;
+
+                        // Finding the least hamming distance
+                        for (int i = 0; i < 5; i++)
+                        {
+                            int hdValue = Hd.Calculate(imageSidikJariAscii, goodEntryAsciiString[i]);
+                            if (hdValue < leastHammingDistance)
+                            {
+                                leastHammingDistance = hdValue;
+                            }
+                        }
+
+                        sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari, leastHammingDistance));
+                    }
+                }
+            }
+            if (!isMatchFound)
+            {
+                // find tuple with least hamming distance
+                var tupleWithLeastHammingDistance = sidikJari_HammingDistance.MinBy(t => t.Item2);
+
+                if (tupleWithLeastHammingDistance != null)
+                {
+                    setResultSidikJari(tupleWithLeastHammingDistance.Item1);
+                }
+            }
         }
 
         private void UpdateButtonColors()
@@ -116,7 +260,8 @@ namespace Selesaikan
                 string file = files[0];
                 if (file.ToLower().EndsWith(".bmp"))
                 {
-                    ((Image)sender).Source = new BitmapImage(new Uri(file));
+                    ((System.Windows.Controls.Image)sender).Source = new BitmapImage(new Uri(file));
+                    setEntryImage(new BitmapImage(new Uri(file)));
                 }
                 else
                 {

@@ -1,3 +1,4 @@
+namespace Selesaikan.Utility;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -5,13 +6,11 @@ using System.Drawing.Imaging;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Selesaikan.Utils
-{
     public class Utils
     {
 
         // Fungsi ConvertToGrayScale untuk mengubah gambar bitmap original menjadi bitmap grayscale
-        static Bitmap ConvertToGrayscale(Bitmap original)
+        public static Bitmap ConvertToGrayscale(Bitmap original)
         {
             Bitmap grayscale = new Bitmap(original.Width, original.Height);
 
@@ -31,7 +30,7 @@ namespace Selesaikan.Utils
         }
 
         // Fungsi ConvertToBinary untuk mengubah gambar bitmap grayscale menjadi gambar bitmap binary
-        static Bitmap ConvertToBinary(Bitmap grayscale)
+        public static Bitmap ConvertToBinary(Bitmap grayscale)
         {
             Bitmap binary = new Bitmap(grayscale.Width, grayscale.Height);
 
@@ -50,7 +49,7 @@ namespace Selesaikan.Utils
         }
 
         // Fungsi BitmapToASCII untuk mengubah gambar bitmap menjadi string ASCII
-        static string BitmapToASCII(Bitmap Binary, int row, int col)
+        public static string BitmapToASCII(Bitmap Binary, int row, int col)
         {
             int widthBox = col * 8;
             int heightBox = row;
@@ -94,7 +93,7 @@ namespace Selesaikan.Utils
         }
 
         // Fungsi GetBinaryString untuk mengubah gambar bitmap binary menjadi string binary
-        static string GetBinaryString(Bitmap binary)
+        public static string GetBinaryString(Bitmap binary)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -112,7 +111,7 @@ namespace Selesaikan.Utils
         }
 
         // Fungsi BinaryStringToASCII untuk mengubah string binary menjadi string ASCII
-        static string BinaryStringToASCII(string binaryString)
+        public static string BinaryStringToASCII(string binaryString)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -228,4 +227,3 @@ namespace Selesaikan.Utils
         }
 
     }
-}
