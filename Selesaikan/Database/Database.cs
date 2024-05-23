@@ -51,9 +51,8 @@ namespace Selesaikan.Database
             return dataSidikJari;
         }
 
-        public List<Biodata> GetBiodata(string name)
+        public Biodata GetBiodata(string name)
         {
-            List<Biodata> dataBiodata = new List<Biodata>();
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(_connectionString))
@@ -66,12 +65,57 @@ namespace Selesaikan.Database
                     {
                         while (reader.Read())
                         {
+                            return new Biodata()
+                            {
+                                Nik = reader.GetString(0),
+                                Nama = reader.GetString(1),
+                                TempatLahir = reader.GetString(2),
+                                TanggalLahir = reader.GetDateTime(3),
+                                JenisKelamin = reader.GetString(4),
+                                GolonganDarah = reader.GetString(5),
+                                Alamat = reader.GetString(6),
+                                Agama = reader.GetString(7),
+                                StatusPerkawinan = reader.GetString(8),
+                                Pekerjaan = reader.GetString(9),
+                                Kewarganegaraan = reader.GetString(10),
+                            };
+                        }
+                    }
+                }
+            }
+            catch (MySqlException e)
+            {
+                // Handle exceptions related to SQL here
+                Console.WriteLine("A SQL error occurred: " + e.Message);
+            }
+            catch (Exception e)
+            {
+                // Handle other types of exceptions here
+                Console.WriteLine("An error occurred: " + e.Message);
+            }
+
+            return new Biodata();
+        }
+        public List<Biodata> GetAllBiodata()
+        {
+            List<Biodata> dataBiodata = new List<Biodata>();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    string sql = "SELECT NIK, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, golongan_darah, alamat, agama, status_perkawinan, pekerjaan, kewarganegaraan FROM biodata";
+                    MySqlCommand command = new MySqlCommand(sql, connection);;
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
                             dataBiodata.Add(new Biodata()
                             {
                                 Nik = reader.GetString(0),
                                 Nama = reader.GetString(1),
                                 TempatLahir = reader.GetString(2),
-                                TanggalLahir = reader.GetString(3),
+                                TanggalLahir = reader.GetDateTime(3),
                                 JenisKelamin = reader.GetString(4),
                                 GolonganDarah = reader.GetString(5),
                                 Alamat = reader.GetString(6),

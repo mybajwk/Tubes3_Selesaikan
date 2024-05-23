@@ -43,6 +43,27 @@ namespace Selesaikan
         public void setResultSidikJari(SidikJari sidikJari)
         {
             resultSidikJari = sidikJari;
+            List<Biodata> allBiodata = _database.GetAllBiodata();
+            List<string> alLName = new List<string>();
+            foreach ( Biodata bio in allBiodata)
+            {
+                if (bio.Nama != null)
+                {
+                    alLName.Add(bio.Nama);
+                }
+            }
+
+            string nama = Utils.MatchTexts(sidikJari.Nama, alLName);
+            if (nama != "")
+            {
+                Console.WriteLine("yey");
+                Console.WriteLine(nama);
+                Biodata bio = _database.GetBiodata(nama);
+                if (bio.Nama != null)
+                {
+                    Console.WriteLine("yey");
+                }
+            } ;
         }
 
         public void setResultBiodata(Biodata biodata)

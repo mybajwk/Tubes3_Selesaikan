@@ -11,7 +11,7 @@ namespace Selesaikan.Models
         public string? Nik { get; set; }
         public string? Nama { get; set; }
         public string? TempatLahir { get; set; }
-        public string? TanggalLahir { get; set; }
+        public DateTime? TanggalLahir { get; set; }
         public string? JenisKelamin { get; set; }
         public string? GolonganDarah { get; set; }
         public string? Alamat { get; set; }

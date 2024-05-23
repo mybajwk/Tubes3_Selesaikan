@@ -156,24 +156,19 @@ using System.Text.RegularExpressions;
             return transitionCount;
         }
 
-        public static List<string> MatchTexts(string inputText, string[] testTexts)
+        public static string MatchTexts(string inputText, List<string> testTexts)
         {
 
-            List<string> results = new List<string>();
             Regex regex = BuildAlayRegex(inputText);
             foreach (string test in testTexts)
             {
                 if (regex.IsMatch(test))
                 {
-                    results.Add($"Match found: '{test}'");
-                }
-                else
-                {
-                    results.Add($"No match: '{test}'");
+                    return test;
                 }
             }
 
-            return results;
+            return "";
         }
 
 
