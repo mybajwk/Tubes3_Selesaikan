@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text;
+using System.Text.RegularExpressions;
 
 public class Utils {
 
@@ -104,4 +105,100 @@ public class Utils {
         return sb.ToString();
     } 
 
+    public static string[] GetChoosenBlockBinaryString(string binaryString, int block, int move)
+    {
+        if (binaryString.Length < block)
+            return new string[0];  // Return an empty
+        List<string> allSubstrings = new List<string>();
+        
+        for (int i = 0; i <= binaryString.Length - block; i+= move)
+        {
+            allSubstrings.Add(binaryString.Substring(i, block));
+        }
+        List<string> sortedSubstrings = allSubstrings.OrderByDescending(s => CountTransitions(s)).ToList();
+
+        
+        return sortedSubstrings.Take(5).ToArray();
+    }
+    private static int CountTransitions(string binary)
+    {
+        int transitionCount = 0;
+        for (int i = 0; i < binary.Length - 1; i++)
+        {
+            if ((binary[i] == '0' && binary[i + 1] == '1') || (binary[i] == '1' && binary[i + 1] == '0'))
+            {
+                transitionCount++;
+            }
+        }
+        return transitionCount;
+    }
+    
+    public static List<string> MatchTexts(string inputText, string[] testTexts)
+    {
+        
+        List<string> results = new List<string>();
+        Regex regex = BuildAlayRegex(inputText);
+        foreach (string test in testTexts)
+        {
+            if (regex.IsMatch(test))
+            {
+                results.Add($"Match found: '{test}'");
+            }
+            else
+            {
+                results.Add($"No match: '{test}'");
+            }
+        }
+        return results;
+    }
+
+    
+    private static Regex BuildAlayRegex(string inputText)
+    {
+        Dictionary<char, string> substitutions = new Dictionary<char, string>
+        {
+            {'a', "[a4@]?"},
+            {'b', "[b8]"},
+            {'c', "[c<({]"},
+            {'d', "[d)]"},
+            {'e', "[e3]?"},
+            {'f', "[f#]"},
+            {'g', "[g9]"},
+            {'h', "[h#]"},
+            {'i', "[i1!|l]?"},
+            {'j', "[j]"},
+            {'k', "[k]"},
+            {'l', "[l1!|]"},
+            {'m', "[m]"},
+            {'n', "[n]"},
+            {'o', "[o0]?"},
+            {'p', "[p]"},
+            {'q', "[q]"},
+            {'r', "[r]"},
+            {'s', "[s5$]"},
+            {'t', "[t7+]"},
+            {'u', "[u]?"},
+            {'v', "[v]"},
+            {'w', "[w]"},
+            {'x', "[x%]"},
+            {'y', "[y]"},
+            {'z', "[z2]"},
+        };
+    
+        string pattern = ".*?"; 
+        foreach (char ch in inputText.ToLower())
+        {
+            if (substitutions.ContainsKey(ch))
+            {
+                pattern += substitutions[ch];
+            }
+            else
+            {
+                pattern += Regex.Escape(ch.ToString()) + "?";
+            }
+            pattern += ".*?";  
+        }
+        return new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+    }
+    
 }
