@@ -147,7 +147,8 @@ namespace Selesaikan
             List<String> goodEntryAsciiString = new List<string>();
             foreach (string binaryString in goodEntryBinaryString)
             {
-                goodEntryAsciiString.Add(binaryString);
+                string goodascii = Utils.BinaryStringToASCII(binaryString);
+                goodEntryAsciiString.Add(goodascii);
             }
 
             // Comparing good ASCII string to database
@@ -181,6 +182,7 @@ namespace Selesaikan
                     // Converting binary strng into ascii string
                     string imageSidikJariAscii = Utils.BinaryStringToASCII(imageSidikJariBinaryString);
 
+                    
                     for (int i = 0; i < 5; i++)
                     {
                         // If the pattern matching found
@@ -188,6 +190,7 @@ namespace Selesaikan
                         {
                             if (Kmp.KmpSearch(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
                             {
+                                Console.WriteLine("ketemuu");
                                 isMatchFound = true;
                             }
                         } else if (currentActiveAlgorithm == "BM") {
@@ -220,6 +223,7 @@ namespace Selesaikan
                     //     sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari, leastHammingDistance));
                     // }
                 }
+
             }
             if (!isMatchFound)
             {
