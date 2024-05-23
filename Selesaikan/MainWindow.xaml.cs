@@ -19,15 +19,16 @@ namespace Selesaikan
     public partial class MainWindow : Window
     {
         private string currentActiveAlgorithm;
-        private Database.Database _database;
-        public MainWindow()
+        // private Database.Database _database;
+        public MainWindow() 
         {
             InitializeComponent();
             SetInitialImage();
             this.currentActiveAlgorithm = "KMP";
-            _database = new Database.Database();
-            List<SidikJari> dataSidikJari = _database.GetSidikJari();
-            Console.WriteLine(dataSidikJari[0].Nama);
+            //_database = new Database.Database();
+            //List<SidikJari> dataSidikJari = _database.GetSidikJari();
+            //Console.Write(dataSidikJari);
+            // Console.WriteLine(dataSidikJari[0].Nama);
             UpdateButtonColors();
         }
 
