@@ -115,8 +115,9 @@ using System.Text.RegularExpressions;
         {
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < binaryString.Length; i += 8)
+            for (int i = 0; i < binaryString.Length-8; i += 8)
             {
+                
                 string byteString = binaryString.Substring(i, 8);
                 sb.Append(Convert.ToChar(Convert.ToInt32(byteString, 2)));
             }

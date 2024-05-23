@@ -14,6 +14,7 @@ using System.Drawing;
 using Selesaikan.Utility;
 using Selesaikan.Algorithm;
 using System.IO;
+using Path = System.IO.Path;
 
 namespace Selesaikan
 {
@@ -56,7 +57,15 @@ namespace Selesaikan
         public BitmapImage getEntryImage() {
             return entryImage;
         }
-
+        public BitmapImage CreateBitmapImageFromPath(string imagePath)
+        {
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;  // This option ensures the image is loaded when it's created
+            bitmap.EndInit();
+            return bitmap;
+        }
         private void SetInitialImage()
         {
             BitmapImage bitmap = new BitmapImage();
@@ -135,7 +144,7 @@ namespace Selesaikan
             string[] goodEntryBinaryString = Utils.GetChoosenBlockBinaryString(entryBinaryString, 32, 8);
 
             // Change good entry binary string to ascii string
-            List<String> goodEntryAsciiString = [.. goodEntryBinaryString];
+            List<String> goodEntryAsciiString = new List<string>();
             foreach (string binaryString in goodEntryBinaryString)
             {
                 goodEntryAsciiString.Add(binaryString);
@@ -147,12 +156,21 @@ namespace Selesaikan
             bool isMatchFound = false;
             foreach (SidikJari sidikJari in dataSidikJari)
             {
+                Console.WriteLine("okok", goodEntryAsciiString[0]);
                 if (sidikJari.BerkasCitra != null)
                 {
-                    Bitmap imageSidikJari = new Bitmap(sidikJari.BerkasCitra);
+                    string filePath = Path.GetFullPath("../../../"+sidikJari.BerkasCitra);
+                   Console.WriteLine(filePath);
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(filePath, UriKind.Absolute);
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                    bitmap.EndInit();
+                    Bitmap tempEntryBitmap = BitmapImage2Bitmap(bitmap);
 
                     // Converting bitmap type to Grayscale image
-                    Bitmap imageSidikJariGrayscale = Utils.ConvertToGrayscale(imageSidikJari);
+                    Bitmap imageSidikJariGrayscale = Utils.ConvertToGrayscale(tempEntryBitmap);
 
                     // Converting grayscale image into binary image
                     Bitmap imageSidikJariBinary = Utils.ConvertToBinary(imageSidikJariGrayscale);
@@ -178,31 +196,29 @@ namespace Selesaikan
                                 isMatchFound = true;
                             }
                         }
-
                     }
-
                     if (isMatchFound)
                     {
                         setResultSidikJari(sidikJari);
                         // set biodata juga
                         break;
                     }
-                    else
-                    {
-                        int leastHammingDistance = 9999;
-
-                        // Finding the least hamming distance
-                        for (int i = 0; i < 5; i++)
-                        {
-                            int hdValue = Hd.Calculate(imageSidikJariAscii, goodEntryAsciiString[i]);
-                            if (hdValue < leastHammingDistance)
-                            {
-                                leastHammingDistance = hdValue;
-                            }
-                        }
-
-                        sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari, leastHammingDistance));
-                    }
+                    // else
+                    // {
+                    //     int leastHammingDistance = 9999;
+                    //
+                    //     // Finding the least hamming distance
+                    //     for (int i = 0; i < 5; i++)
+                    //     {
+                    //         int hdValue = Hd.Calculate(imageSidikJariAscii, goodEntryAsciiString[i]);
+                    //         if (hdValue < leastHammingDistance)
+                    //         {
+                    //             leastHammingDistance = hdValue;
+                    //         }
+                    //     }
+                    //
+                    //     sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari, leastHammingDistance));
+                    // }
                 }
             }
             if (!isMatchFound)
