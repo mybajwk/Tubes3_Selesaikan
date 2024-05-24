@@ -4,7 +4,7 @@ namespace Selesaikan.Algorithm;
 
 public class Kmp
 {
-    public static int KmpSearch(string text, string pattern, ref int hd) {
+    public static int KmpSearch(string text, string pattern) {
         int n = text.Length;
         int m = pattern.Length;
         int[] lps = new int[m];
@@ -21,7 +21,6 @@ public class Kmp
             }
             if (j == m) {
                 Console.WriteLine("Found pattern at index " + (i - j));
-                hd = Hd.Calculate(pattern,text.Substring((i-j),text.Length));
                 // j = lps[j - 1];
                 return i;
             }

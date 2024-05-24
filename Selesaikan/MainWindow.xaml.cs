@@ -38,8 +38,8 @@ namespace Selesaikan
             resultSidikJari = new SidikJari();
             resultBiodata = new Biodata();
             entryImage = new BitmapImage();
-            _database.initListBiodata();
-            _database.initListSidikjari();
+            // _database.initListBiodata();
+            // _database.initListSidikjari();
         }
 
         public void setResultSidikJari(SidikJari sidikJari)
@@ -163,6 +163,8 @@ namespace Selesaikan
             // Converting binary bitmap to binary string
             string entryBinaryString = Utils.GetBinaryString(entryBinaryBitmap);
 
+            string entryAscii = Utils.BinaryStringToASCII(entryBinaryString);
+
             // Taking some blocks that is good for comparing
             string[] goodEntryBinaryString = Utils.GetChoosenBlockBinaryString(entryBinaryString, 32, 8);
 
@@ -207,29 +209,42 @@ namespace Selesaikan
                     string imageSidikJariAscii = Utils.BinaryStringToASCII(imageSidikJariBinaryString);
 
                     int hd_sidik = 9999;
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 2; i++)
                     {
                         // If the pattern matching found
                         if (currentActiveAlgorithm == "KMP")
                         {
-                            if (Kmp.KmpSearch(imageSidikJariAscii, goodEntryAsciiString[i],ref hd_sidik) != -1)
+                            if (Kmp.KmpSearch(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
                             {
                                 Console.WriteLine("ketemuu");
                                 isMatchFound = true;
                             }
                         } else if (currentActiveAlgorithm == "BM") {
                             
-                            if (Bm.Search(imageSidikJariAscii, goodEntryAsciiString[i],ref hd_sidik) != -1)
+                            if (Bm.Search(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
                             {
                                 isMatchFound = true;
                             }
                         }
                     }
+                    
                     sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari,hd_sidik));
                     if (isMatchFound)
                     {
                         setResultSidikJari(sidikJari);
                         break;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            int hdValue = Hd.Calculate(imageSidikJariAscii, entryAscii);
+                            sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari, hdValue));
+                        }
+                        catch (Exception _e)
+                        {
+                            Console.WriteLine("someeror in execption");
+                        }
                     }
                 }
 

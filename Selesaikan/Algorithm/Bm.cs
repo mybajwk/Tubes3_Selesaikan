@@ -2,7 +2,7 @@ namespace Selesaikan.Algorithm;
 
 public class Bm
 {
-    public static int Search(string text, string pat,ref int hd_sidik) {
+    public static int Search(string text, string pat) {
         int n = text.Length;
         int m = pat.Length;
         int skip;
@@ -27,7 +27,6 @@ public class Bm
             }
             if (skip == 0) {
                 Console.WriteLine("Pattern found at position " + i);
-                hd_sidik = Hd.Calculate(pat,text.Substring(i,pat.Length));
                 return i; // Found
             }
         }
