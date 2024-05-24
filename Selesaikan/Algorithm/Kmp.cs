@@ -1,8 +1,10 @@
+using System.Security.Cryptography;
+
 namespace Selesaikan.Algorithm;
 
 public class Kmp
 {
-    public static int KmpSearch(string text, string pattern) {
+    public static int KmpSearch(string text, string pattern, ref int hd) {
         int n = text.Length;
         int m = pattern.Length;
         int[] lps = new int[m];
@@ -11,7 +13,7 @@ public class Kmp
         // Preprocess the pattern to calculate lps array
         ComputeLpsArray(pattern, m, lps);
 
-        int i = 0; // Index for text
+        int i = 0;
         while (i < n) {
             if (pattern[j] == text[i]) {
                 j++;
@@ -19,6 +21,7 @@ public class Kmp
             }
             if (j == m) {
                 Console.WriteLine("Found pattern at index " + (i - j));
+                hd = Hd.Calculate(pattern,text.Substring((i-j),text.Length));
                 // j = lps[j - 1];
                 return i;
             }

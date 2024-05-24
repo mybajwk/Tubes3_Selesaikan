@@ -38,6 +38,8 @@ namespace Selesaikan
             resultSidikJari = new SidikJari();
             resultBiodata = new Biodata();
             entryImage = new BitmapImage();
+            _database.initListBiodata();
+            _database.initListSidikjari();
         }
 
         public void setResultSidikJari(SidikJari sidikJari)
@@ -174,6 +176,7 @@ namespace Selesaikan
 
             // Comparing good ASCII string to database
             List<SidikJari> dataSidikJari = _database.GetSidikJari();
+            
             List<Tuple<SidikJari, int>> sidikJari_HammingDistance = new List<Tuple<SidikJari, int>>();
             bool isMatchFound = false;
             foreach (SidikJari sidikJari in dataSidikJari)
@@ -203,46 +206,31 @@ namespace Selesaikan
                     // Converting binary strng into ascii string
                     string imageSidikJariAscii = Utils.BinaryStringToASCII(imageSidikJariBinaryString);
 
-                    
+                    int hd_sidik = 9999;
                     for (int i = 0; i < 5; i++)
                     {
                         // If the pattern matching found
                         if (currentActiveAlgorithm == "KMP")
                         {
-                            if (Kmp.KmpSearch(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
+                            if (Kmp.KmpSearch(imageSidikJariAscii, goodEntryAsciiString[i],ref hd_sidik) != -1)
                             {
                                 Console.WriteLine("ketemuu");
                                 isMatchFound = true;
                             }
                         } else if (currentActiveAlgorithm == "BM") {
-                            if (Bm.Search(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
+                            
+                            if (Bm.Search(imageSidikJariAscii, goodEntryAsciiString[i],ref hd_sidik) != -1)
                             {
                                 isMatchFound = true;
                             }
                         }
                     }
+                    sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari,hd_sidik));
                     if (isMatchFound)
                     {
                         setResultSidikJari(sidikJari);
-                        // set biodata juga
                         break;
                     }
-                    // else
-                    // {
-                    //     int leastHammingDistance = 9999;
-                    //
-                    //     // Finding the least hamming distance
-                    //     for (int i = 0; i < 5; i++)
-                    //     {
-                    //         int hdValue = Hd.Calculate(imageSidikJariAscii, goodEntryAsciiString[i]);
-                    //         if (hdValue < leastHammingDistance)
-                    //         {
-                    //             leastHammingDistance = hdValue;
-                    //         }
-                    //     }
-                    //
-                    //     sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari, leastHammingDistance));
-                    // }
                 }
 
             }
