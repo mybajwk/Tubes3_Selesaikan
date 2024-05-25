@@ -1,62 +1,57 @@
 using System;
-using System.IO;
-using System.Security.Cryptography;
 using System.Text;
 
-public class AESEncryptionExample
+public class Blowfish
 {
-    private static byte[] key = Encoding.UTF8.GetBytes("0123456789ABCDEF");
+    private uint[] P;
+    private uint[,] S;
 
-    public static string EncryptString(string plainText)
+    public Blowfish(byte[] key)
     {
-        using (Aes aesAlg = Aes.Create())
-        {
-            aesAlg.Key = key;
-            aesAlg.GenerateIV();
-
-            ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-
-            using (MemoryStream msEncrypt = new MemoryStream())
-            {
-                
-                msEncrypt.Write(aesAlg.IV, 0, aesAlg.IV.Length);
-
-                using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                {
-                    byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
-
-                    csEncrypt.Write(plainBytes, 0, plainBytes.Length);
-                }
-
-                return Convert.ToBase64String(msEncrypt.ToArray());
-            }
-        }
+        SetupKey(key);
     }
 
-    public static string DecryptString(string cipherText)
+    private void SetupKey(byte[] key)
+    {
+        
+        P = new uint[18]; // Simplified P-array initialization
+        S = new uint[4, 256]; // Simplified S-box initialization
+
+        // Key schedule: XOR P-array with key bits
+        int keyIndex = 0;
+        for (int i = 0; i < 18; i++)
+        {
+            uint data = 0x00000000;
+            for (int j = 0; j < 4; j++)
+            {
+                data = (data << 8) | key[keyIndex];
+                keyIndex++;
+                if (keyIndex >= key.Length)
+                    keyIndex = 0;
+            }
+
+            P[i] ^= data;
+        }
+
+    }
+
+    public string Encrypt(string plainText)
+    {
+        byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
+        byte[] cipherBytes = ProcessBytes(plainBytes, true);
+        return Convert.ToBase64String(cipherBytes);
+    }
+
+    public string Decrypt(string cipherText)
     {
         byte[] cipherBytes = Convert.FromBase64String(cipherText);
+        byte[] plainBytes = ProcessBytes(cipherBytes, false);
+        return Encoding.UTF8.GetString(plainBytes);
+    }
 
-        using (Aes aesAlg = Aes.Create())
-        {
-            aesAlg.Key = key;
-
-            byte[] iv = new byte[aesAlg.IV.Length];
-            Array.Copy(cipherBytes, 0, iv, 0, iv.Length);
-            aesAlg.IV = iv;
-
-            ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-
-            using (MemoryStream msDecrypt = new MemoryStream(cipherBytes, iv.Length, cipherBytes.Length - iv.Length))
-            {
-                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                {
-                    using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                    {
-                        return srDecrypt.ReadToEnd();
-                    }
-                }
-            }
-        }
+    private byte[] ProcessBytes(byte[] inputBytes, bool encrypt)
+    {
+        return inputBytes; 
     }
 }
+

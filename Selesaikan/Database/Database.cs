@@ -1,5 +1,5 @@
+using System.Text;
 using MySql.Data.MySqlClient;
-using System.Configuration;
 using Selesaikan.Models;
 
 namespace Selesaikan.Database
@@ -10,8 +10,12 @@ namespace Selesaikan.Database
 
         public Database()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["DatabaseConnection"].ConnectionString;
-            Console.WriteLine(_connectionString);
+            Console.WriteLine("aaa");
+            
+            AppConfig loadedConfig = Config.Config.LoadConfiguration("config.json");
+            Console.WriteLine(loadedConfig.DatabaseConnectionString);
+            _connectionString = loadedConfig.DatabaseConnectionString;
+            Console.WriteLine("bbb");
         }
 
         public List<SidikJari> GetSidikJari()
@@ -141,5 +145,104 @@ namespace Selesaikan.Database
 
             return dataBiodata;
         }
+
+        public void TruncateBiodata()
+        {
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        // SQL command to truncate the table
+                        string sql = "TRUNCATE TABLE biodata";
+                        MySqlCommand command = new MySqlCommand(sql, connection);
+                        command.ExecuteNonQuery();
+
+                        // Commit the transaction
+                        transaction.Commit();
+                        Console.WriteLine("Table 'biodata' has been truncated successfully.");
+                    }
+                    catch (MySqlException e)
+                    {
+                        // Handle exceptions related to SQL here
+                        Console.WriteLine("A SQL error occurred: " + e.Message);
+                        transaction.Rollback(); // Rollback the transaction on error
+                    }
+                    catch (Exception e)
+                    {
+                        // Handle other types of exceptions here
+                        Console.WriteLine("An error occurred: " + e.Message);
+                        transaction.Rollback(); // Rollback the transaction on error
+                    }
+                }
+            }
+
+        }
+
+        public void SaveAllBiodata(List<Biodata> biodataList)
+        {
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                AppConfig loadedConfig = Config.Config.LoadConfiguration("config.json");
+                byte[] key = Encoding.UTF8.GetBytes(loadedConfig.Key);
+                Blowfish blowfish = new Blowfish(key);
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var biodata in biodataList)
+                        {
+                            string encryptedNik = blowfish.Encrypt(biodata.Nik);
+                            string encryptedNama = blowfish.Encrypt(biodata.Nama);
+                            string encryptedTempatLahir = blowfish.Encrypt(biodata.TempatLahir);
+                            string encryptedKewarganegaraan = blowfish.Encrypt(biodata.Kewarganegaraan);
+                            // string encryptedJenisKelamin= blowfish.Encrypt(biodata.JenisKelamin);
+                            string encryptedGolonganDarah = blowfish.Encrypt(biodata.GolonganDarah);
+                            string encryptedAlamat = blowfish.Encrypt(biodata.Alamat);
+                            string encryptedAgama = blowfish.Encrypt(biodata.Agama);
+                            // string encryptedStatusPerkawinan= blowfish.Encrypt(biodata.StatusPerkawinan);
+                            string encryptedPekerjaan = blowfish.Encrypt(biodata.Pekerjaan);
+
+                            string sql =
+                                "INSERT INTO biodata (NIK, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, golongan_darah, alamat, agama, status_perkawinan, pekerjaan, kewarganegaraan) " +
+                                "VALUES (@NIK, @Nama, @TempatLahir, @TanggalLahir, @JenisKelamin, @GolonganDarah, @Alamat, @Agama, @StatusPerkawinan, @Pekerjaan, @Kewarganegaraan)";
+
+                            MySqlCommand command = new MySqlCommand(sql, connection);
+                            command.Parameters.AddWithValue("@NIK", encryptedNik);
+                            command.Parameters.AddWithValue("@Nama", encryptedNama);
+                            command.Parameters.AddWithValue("@TempatLahir", encryptedTempatLahir);
+                            command.Parameters.AddWithValue("@TanggalLahir", biodata.TanggalLahir);
+                            command.Parameters.AddWithValue("@JenisKelamin", biodata.JenisKelamin);
+                            command.Parameters.AddWithValue("@GolonganDarah", encryptedGolonganDarah);
+                            command.Parameters.AddWithValue("@Alamat", encryptedAlamat);
+                            command.Parameters.AddWithValue("@Agama", encryptedAgama);
+                            command.Parameters.AddWithValue("@StatusPerkawinan", biodata.StatusPerkawinan);
+                            command.Parameters.AddWithValue("@Pekerjaan", encryptedPekerjaan);
+                            command.Parameters.AddWithValue("@Kewarganegaraan", encryptedKewarganegaraan);
+
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Commit the transaction
+                        transaction.Commit();
+                    }
+                    catch (MySqlException e)
+                    {
+                        // Handle exceptions related to SQL here
+                        Console.WriteLine("A SQL error occurred: " + e.Message);
+                    }
+                    catch (Exception e)
+                    {
+                        // Handle other types of exceptions here
+                        Console.WriteLine("An error occurred: " + e.Message);
+                    }
+                }
+            }
+        }
+
     }
 }

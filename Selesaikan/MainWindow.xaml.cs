@@ -15,6 +15,7 @@ using Selesaikan.Utility;
 using Selesaikan.Algorithm;
 using System.IO;
 using Path = System.IO.Path;
+using Selesaikan.Config;
 
 namespace Selesaikan
 {
@@ -38,8 +39,17 @@ namespace Selesaikan
             resultSidikJari = new SidikJari();
             resultBiodata = new Biodata();
             entryImage = new BitmapImage();
-            // _database.initListBiodata();
-            // _database.initListSidikjari();
+            
+            AppConfig loadedConfig = Config.Config.LoadConfiguration("config.json");
+            if (!loadedConfig.IsEncrypted)
+            {
+
+                List<Biodata> allBiodata = _database.GetAllBiodata();
+                _database.TruncateBiodata();
+                _database.SaveAllBiodata(allBiodata);
+                loadedConfig.IsEncrypted = true;
+                Config.Config.SaveConfiguration(loadedConfig, "config.json");
+            }
         }
 
         public void setResultSidikJari(SidikJari sidikJari)
@@ -47,11 +57,14 @@ namespace Selesaikan
             resultSidikJari = sidikJari;
             List<Biodata> allBiodata = _database.GetAllBiodata();
             List<string> alLName = new List<string>();
+            AppConfig loadedConfig = Config.Config.LoadConfiguration("config.json");
+            byte[] key = Encoding.UTF8.GetBytes(loadedConfig.Key);
+            Blowfish blowfish = new Blowfish(key);
             foreach ( Biodata bio in allBiodata)
             {
                 if (bio.Nama != null)
                 {
-                    alLName.Add(bio.Nama);
+                    alLName.Add(blowfish.Decrypt(bio.Nama));
                 }
             }
 
@@ -60,11 +73,12 @@ namespace Selesaikan
             {
                 Console.WriteLine("yey");
                 Console.WriteLine(nama);
-                Biodata bio = _database.GetBiodata(nama);
+                Biodata bio = _database.GetBiodata(blowfish.Encrypt(nama));
                 if (bio.Nama != null)
                 {
                     Console.WriteLine("yey");
                 }
+                Console.WriteLine(sidikJari.Nama);
             } ;
         }
 
@@ -208,7 +222,6 @@ namespace Selesaikan
                     // Converting binary strng into ascii string
                     string imageSidikJariAscii = Utils.BinaryStringToASCII(imageSidikJariBinaryString);
 
-                    int hd_sidik = 9999;
                     for (int i = 0; i < 2; i++)
                     {
                         // If the pattern matching found
@@ -228,7 +241,6 @@ namespace Selesaikan
                         }
                     }
                     
-                    sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari,hd_sidik));
                     if (isMatchFound)
                     {
                         setResultSidikJari(sidikJari);
