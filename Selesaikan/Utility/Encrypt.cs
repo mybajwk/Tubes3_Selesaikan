@@ -59,15 +59,4 @@ public class AESEncryptionExample
             }
         }
     }
-    public static void Main(string[] args)
-    {
-        string originalText = "../../Path/Hehe.txt";
-        Console.WriteLine("Original Text: " + originalText);
-
-        string encryptedText = EncryptString(originalText);
-        Console.WriteLine("Encrypted Text: " + encryptedText);
-
-        string decryptedText = DecryptString(encryptedText);
-        Console.WriteLine("Decrypted Text: " + decryptedText);
-    }
 }
