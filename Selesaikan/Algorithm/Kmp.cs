@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 namespace Selesaikan.Algorithm;
 
 public class Kmp
@@ -11,7 +13,7 @@ public class Kmp
         // Preprocess the pattern to calculate lps array
         ComputeLpsArray(pattern, m, lps);
 
-        int i = 0; // Index for text
+        int i = 0;
         while (i < n) {
             if (pattern[j] == text[i]) {
                 j++;

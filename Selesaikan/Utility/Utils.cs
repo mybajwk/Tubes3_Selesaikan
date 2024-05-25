@@ -139,7 +139,7 @@ using System.Text.RegularExpressions;
             List<string> sortedSubstrings = allSubstrings.OrderByDescending(s => CountTransitions(s)).ToList();
 
 
-            return sortedSubstrings.Take(5).ToArray();
+            return sortedSubstrings.Take(2).ToArray();
         }
 
         private static int CountTransitions(string binary)
