@@ -16,6 +16,7 @@ using Selesaikan.Algorithm;
 using System.IO;
 using Path = System.IO.Path;
 using Selesaikan.Config;
+using System.Diagnostics;
 
 namespace Selesaikan
 {
@@ -29,6 +30,11 @@ namespace Selesaikan
         private Database.Database _database;
         private SidikJari resultSidikJari;
         private Biodata resultBiodata;
+        private Stopwatch stopwatch;
+
+        private double searchTime;
+        private double similarityPercentage;
+
         public MainWindow() 
         {
             InitializeComponent();
@@ -39,7 +45,9 @@ namespace Selesaikan
             resultSidikJari = new SidikJari();
             resultBiodata = new Biodata();
             entryImage = new BitmapImage();
-            
+
+            this.stopwatch = new Stopwatch();
+
             AppConfig loadedConfig = Config.Config.LoadConfiguration("config.json");
             if (!loadedConfig.IsEncrypted)
             {
@@ -52,15 +60,95 @@ namespace Selesaikan
             }
         }
 
+        public void UpdateResultBiodata()
+        {
+            AppConfig loadedConfig = Config.Config.LoadConfiguration("config.json");
+            byte[] key = Encoding.UTF8.GetBytes(loadedConfig.Key);
+            Blowfish blowfish = new Blowfish(key);
+
+
+            NamaUser.Content = resultSidikJari.Nama;
+            NikUser.Content = blowfish.Decrypt(resultBiodata.Nik);
+            TempatLahirUser.Content = blowfish.Decrypt(resultBiodata.TempatLahir);
+            TanggalLahirUser.Content = resultBiodata.TanggalLahir;
+            JenisKelaminUser.Content = resultBiodata.JenisKelamin;
+            GolonganDarahUser.Content = blowfish.Decrypt(resultBiodata.GolonganDarah);
+            AlamatUser.Content = blowfish.Decrypt(resultBiodata.Alamat);
+            AgamaUser.Content = blowfish.Decrypt(resultBiodata.Agama);
+            StatusPerkawinanUser.Content = resultBiodata.StatusPerkawinan;
+            PekerjaanUser.Content = blowfish.Decrypt(resultBiodata.Pekerjaan);
+            KewarganegaraanUser.Content = blowfish.Decrypt(resultBiodata.Kewarganegaraan);
+        }
+
+        public void UpdatePerformanceResult()
+        {
+            if (this.searchTime > 1000)
+            {
+                double searchTimeInSeconds = this.searchTime / 1000.0;
+                searchTimeLabel.Content = $"Search time    : {searchTimeInSeconds} s";
+            }
+            else
+            {
+                searchTimeLabel.Content = $"Search time    : {this.searchTime} ms";
+            }
+
+            similarityLabel.Content = $"Similarity Percentage : {this.similarityPercentage} %";
+        }
+
+        public void UpdateResultSidikJari()
+        {
+            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string projectDirectory = Directory.GetParent(currentDirectory)?.Parent?.Parent?.Parent?.FullName;
+
+            if (projectDirectory == null)
+            {
+                throw new DirectoryNotFoundException("Project directory not found.");
+            }
+
+            // Combine the project directory with the relative path
+            string relativePath = resultSidikJari.BerkasCitra;
+            string fullPath = Path.Combine(projectDirectory, relativePath);
+
+            // Ensure the file exists
+            if (!File.Exists(fullPath))
+            {
+                throw new FileNotFoundException($"The file '{fullPath}' does not exist.");
+            }
+
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(fullPath, UriKind.Absolute);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            outputImage.Source = bitmap;
+        }
+
+        public void setSearchTime(double newSearchTime)
+        {
+            this.searchTime = newSearchTime;
+        }
+
+        public void setSimilarityPercentage(double newPercentage)
+        {
+            this.similarityPercentage = newPercentage;
+        }
+
         public void setResultSidikJari(SidikJari sidikJari)
         {
+            stopwatch.Stop();
+            double elapsedMilliseconds = stopwatch.Elapsed.TotalMilliseconds;
+
+            setSearchTime(elapsedMilliseconds);
+            stopwatch.Reset();
+
             resultSidikJari = sidikJari;
+            MessageBox.Show(sidikJari.Nama);
             List<Biodata> allBiodata = _database.GetAllBiodata();
             List<string> alLName = new List<string>();
             AppConfig loadedConfig = Config.Config.LoadConfiguration("config.json");
             byte[] key = Encoding.UTF8.GetBytes(loadedConfig.Key);
             Blowfish blowfish = new Blowfish(key);
-            foreach ( Biodata bio in allBiodata)
+            foreach (Biodata bio in allBiodata)
             {
                 if (bio.Nama != null)
                 {
@@ -74,11 +162,15 @@ namespace Selesaikan
                 Console.WriteLine("yey");
                 Console.WriteLine(nama);
                 Biodata bio = _database.GetBiodata(blowfish.Encrypt(nama));
+                setResultBiodata(bio);
                 if (bio.Nama != null)
                 {
                     Console.WriteLine("yey");
                 }
                 Console.WriteLine(sidikJari.Nama);
+                UpdateResultBiodata();
+                UpdateResultSidikJari();
+                UpdatePerformanceResult();
             } ;
         }
 
@@ -140,6 +232,7 @@ namespace Selesaikan
 
         private void bmButton_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("click bm button");
             currentActiveAlgorithm = "BM";
             UpdateButtonColors();
         }
@@ -162,6 +255,9 @@ namespace Selesaikan
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
             // Taking image from state from image loading
+            MessageBox.Show("search button clicked");
+            stopwatch.Start();
+            
             BitmapImage entryBitmapImage = getEntryImage();
             Console.WriteLine(entryBitmapImage);
 
@@ -244,6 +340,7 @@ namespace Selesaikan
                     if (isMatchFound)
                     {
                         setResultSidikJari(sidikJari);
+                        setSimilarityPercentage(100.00);
                         break;
                     }
                     else
@@ -269,6 +366,7 @@ namespace Selesaikan
                 if (tupleWithLeastHammingDistance != null)
                 {
                     setResultSidikJari(tupleWithLeastHammingDistance.Item1);
+                    setSimilarityPercentage(1 - (tupleWithLeastHammingDistance.Item2 / (entryBitmap.Width * entryBitmap.Height)));
                 }
             }
         }

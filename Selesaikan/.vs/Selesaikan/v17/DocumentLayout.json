@@ -1,34 +1,48 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\",
+  "WorkspaceRootPath": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\stima\\tubes3_selesaikan\\selesaikan\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\tubes3_selesaikan\\selesaikan\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\stima\\tubes3_selesaikan\\selesaikan\\models\\sidikjari.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:models\\sidikjari.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\stima\\tubes3_selesaikan\\selesaikan\\models\\biodata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:models\\biodata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\stima\\tubes3_selesaikan\\selesaikan\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\stima\\tubes3_selesaikan\\selesaikan\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\tubes3_selesaikan\\selesaikan\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\stima\\tubes3_selesaikan\\selesaikan\\algo\\bm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:algo\\bm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\tubes3_selesaikan\\selesaikan\\config.json||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:config.json||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\stima\\tubes3_selesaikan\\selesaikan\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\tubes3_selesaikan\\selesaikan\\utility\\encrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:utility\\encrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\tubes3_selesaikan\\selesaikan\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\tubes3_selesaikan\\selesaikan\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\tubes3_selesaikan\\selesaikan\\models\\sidikjari.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:models\\sidikjari.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\tubes3_selesaikan\\selesaikan\\database\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:database\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|c:\\users\\asus\\desktop\\itb penting - copy\\semester 4\\tubes3_selesaikan\\selesaikan\\models\\biodata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1E3F53A-2EED-48AA-86B5-039CB4CB282D}|Selesaikan.csproj|solutionrelative:models\\biodata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Msbuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\algo\\bm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Asus\\AppData\\Local\\Temp\\.vsdbgsrc\\8be7fbd7bc1e5e6a4c8d6fcc4d565acac7434f2545313e2526c666d72b2dc4ac\\App.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -41,104 +55,162 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SidikJari.cs",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\Models\\SidikJari.cs",
-              "RelativeDocumentMoniker": "Models\\SidikJari.cs",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\Models\\SidikJari.cs",
-              "RelativeToolTip": "Models\\SidikJari.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T11:23:44.355Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Biodata.cs",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\Models\\Biodata.cs",
-              "RelativeDocumentMoniker": "Models\\Biodata.cs",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\Models\\Biodata.cs",
-              "RelativeToolTip": "Models\\Biodata.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T11:23:43.726Z"
+              "Title": "config.json",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\config.json",
+              "RelativeDocumentMoniker": "config.json",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\config.json",
+              "RelativeToolTip": "config.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-06-08T13:50:16.004Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "AssemblyInfo.cs",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\AssemblyInfo.cs",
-              "RelativeDocumentMoniker": "AssemblyInfo.cs",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\AssemblyInfo.cs",
-              "RelativeToolTip": "AssemblyInfo.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Title": "Encrypt.cs",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Utility\\Encrypt.cs",
+              "RelativeDocumentMoniker": "Utility\\Encrypt.cs",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Utility\\Encrypt.cs",
+              "RelativeToolTip": "Utility\\Encrypt.cs",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAowFAAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T11:14:10.019Z"
+              "WhenOpened": "2024-06-08T14:09:07.607Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "bm.cs",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\algo\\bm.cs",
-              "RelativeDocumentMoniker": "algo\\bm.cs",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\algo\\bm.cs",
-              "RelativeToolTip": "algo\\bm.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAAwCEAAAAHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T11:23:19.022Z"
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-06-08T14:41:32.016Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\MainWindow.xaml",
-              "RelativeToolTip": "MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-23T11:22:34.588Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "App.config",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\App.config",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\App.config",
               "RelativeDocumentMoniker": "App.config",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\App.config",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\App.config",
               "RelativeToolTip": "App.config",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-05-23T11:22:29.349Z"
+              "WhenOpened": "2024-05-23T11:22:29.349Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAjAAAA",
+              "ViewState": "AQIAAJQBAAAAAAAAAAAAAFsAAABeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-23T11:20:41.062Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\AssemblyInfo.cs",
+              "RelativeToolTip": "AssemblyInfo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T11:14:10.019Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SidikJari.cs",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Models\\SidikJari.cs",
+              "RelativeDocumentMoniker": "Models\\SidikJari.cs",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Models\\SidikJari.cs",
+              "RelativeToolTip": "Models\\SidikJari.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T11:23:44.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "Database.cs",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Database\\Database.cs",
+              "RelativeDocumentMoniker": "Database\\Database.cs",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Database\\Database.cs",
+              "RelativeToolTip": "Database\\Database.cs",
+              "ViewState": "AQIAAHwAAAAAAAAAAAAkwK8AAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-08T14:20:35.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Biodata.cs",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Models\\Biodata.cs",
+              "RelativeDocumentMoniker": "Models\\Biodata.cs",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Models\\Biodata.cs",
+              "RelativeToolTip": "Models\\Biodata.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAgAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T11:23:43.726Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Msbuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Msbuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Msbuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Msbuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AQIAAHUUAAAAAAAAAAD4v3YUAABSAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-06-08T14:30:40.144Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "bm.cs",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\algo\\bm.cs",
+              "RelativeDocumentMoniker": "..\\..\\stima\\Tubes3_Selesaikan\\Selesaikan\\algo\\bm.cs",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\algo\\bm.cs",
+              "RelativeToolTip": "..\\..\\stima\\Tubes3_Selesaikan\\Selesaikan\\algo\\bm.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T11:23:19.022Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "App.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\AppData\\Local\\Temp\\.vsdbgsrc\\8be7fbd7bc1e5e6a4c8d6fcc4d565acac7434f2545313e2526c666d72b2dc4ac\\App.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\8be7fbd7bc1e5e6a4c8d6fcc4d565acac7434f2545313e2526c666d72b2dc4ac\\App.cs",
-              "ToolTip": "C:\\Users\\Asus\\AppData\\Local\\Temp\\.vsdbgsrc\\8be7fbd7bc1e5e6a4c8d6fcc4d565acac7434f2545313e2526c666d72b2dc4ac\\App.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\8be7fbd7bc1e5e6a4c8d6fcc4d565acac7434f2545313e2526c666d72b2dc4ac\\App.cs [Read Only]",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\8be7fbd7bc1e5e6a4c8d6fcc4d565acac7434f2545313e2526c666d72b2dc4ac\\App.cs",
+              "ToolTip": "C:\\Users\\Asus\\AppData\\Local\\Temp\\.vsdbgsrc\\8be7fbd7bc1e5e6a4c8d6fcc4d565acac7434f2545313e2526c666d72b2dc4ac\\App.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\8be7fbd7bc1e5e6a4c8d6fcc4d565acac7434f2545313e2526c666d72b2dc4ac\\App.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-23T11:19:11.264Z",
-              "EditorCaption": " [Read Only]"
+              "EditorCaption": ""
             }
           ]
         }

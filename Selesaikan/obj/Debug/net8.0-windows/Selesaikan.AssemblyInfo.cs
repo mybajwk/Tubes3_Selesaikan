@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Selesaikan")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e8aa75d54af00796d9907110faff7ee93ffc7c8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+578203aa2aa783876530af5dc329c1726e575a87")]
 [assembly: System.Reflection.AssemblyProductAttribute("Selesaikan")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Selesaikan")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

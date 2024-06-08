@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OmdmnlB+4MZ4mSRG/CJzqvIDnLd/9XhffDEPPjiqHq/AwnQ4Ag+jIf3jcTz9qAn8k5AxfBiu1V5kgAHT44pfkw==",
+  "dgSpecHash": "3rmFkwDR7pwsSwTRCTuzTDhBXYnC2YV4Y68rDO4xHqKvLNhVBCyDumTERLxVga4zyhjOOpb33LTyzKQU+0ZOOg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\stima\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
+  "projectFilePath": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\google.protobuf\\3.25.1\\google.protobuf.3.25.1.nupkg.sha512",
@@ -13,6 +13,7 @@
     "C:\\Users\\Asus\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\mysql.data\\8.4.0\\mysql.data.8.4.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\system.diagnostics.diagnosticsource\\7.0.2\\system.diagnostics.diagnosticsource.7.0.2.nupkg.sha512",
