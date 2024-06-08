@@ -35,6 +35,36 @@ namespace Selesaikan
         private double searchTime;
         private double similarityPercentage;
 
+        private bool hasUserUpload = false;
+
+        public void StartStopwatch()
+        {
+            DisableButtons(); // Disable buttons
+            stopwatch.Start();
+        }
+
+        public void StopStopwatch()
+        {
+            stopwatch.Stop();
+            EnableButtons(); // Enable buttons
+        }
+
+        private void DisableButtons()
+        {
+            btnLoadImage.IsEnabled = false;
+            kmpButton.IsEnabled = false;
+            bmButton.IsEnabled = false;
+            searchButton.IsEnabled = false;
+        }
+
+        private void EnableButtons()
+        {
+            btnLoadImage.IsEnabled = true;
+            kmpButton.IsEnabled = true;
+            bmButton.IsEnabled = true;
+            searchButton.IsEnabled = true;
+        }
+
         public MainWindow() 
         {
             InitializeComponent();
@@ -85,14 +115,14 @@ namespace Selesaikan
             if (this.searchTime > 1000)
             {
                 double searchTimeInSeconds = this.searchTime / 1000.0;
-                searchTimeLabel.Content = $"Search time    : {searchTimeInSeconds} s";
+                searchTimeLabel.Content = $"Search time    : {searchTimeInSeconds.ToString("F2")} s";
             }
             else
             {
                 searchTimeLabel.Content = $"Search time    : {this.searchTime} ms";
             }
 
-            similarityLabel.Content = $"Similarity Percentage : {this.similarityPercentage} %";
+            similarityLabel.Content = $"Similarity Percentage : {this.similarityPercentage.ToString("F2")} %";
         }
 
         public void UpdateResultSidikJari()
@@ -142,7 +172,6 @@ namespace Selesaikan
             stopwatch.Reset();
 
             resultSidikJari = sidikJari;
-            MessageBox.Show(sidikJari.Nama);
             List<Biodata> allBiodata = _database.GetAllBiodata();
             List<string> alLName = new List<string>();
             AppConfig loadedConfig = Config.Config.LoadConfiguration("config.json");
@@ -229,6 +258,7 @@ namespace Selesaikan
 
                 displayImage.Source = bitmap;
                 setEntryImage(bitmap);
+                hasUserUpload = true;
             }
         }
 
@@ -240,7 +270,6 @@ namespace Selesaikan
 
         private void bmButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("click bm button");
             currentActiveAlgorithm = "BM";
             UpdateButtonColors();
         }
@@ -265,7 +294,11 @@ namespace Selesaikan
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
             // Taking image from state from image loading
-            MessageBox.Show("search button clicked");
+            if (!hasUserUpload)
+            {
+                MessageBox.Show("Please upload an image first");
+                return;
+            }
             stopwatch.Start();
             
             BitmapImage entryBitmapImage = getEntryImage();

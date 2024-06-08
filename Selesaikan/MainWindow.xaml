@@ -13,7 +13,7 @@
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="800" Height="364" Margin="0,60,0,0">
                 <WrapPanel Orientation="Horizontal" Height="300">
                     <Image Margin="20,0,0,0" x:Name="displayImage" Source="Images/insertimage.png" Height="250" Width="250" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" AllowDrop="True" Drop="Image_Drop" DragOver="Image_DragOver"/>
-                    <Image Margin="10,0,0,0" x:Name="outputImage" Source="Images/insertimage.png" Height="250" Width="250" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" AllowDrop="True" Drop="Image_Drop" DragOver="Image_DragOver"/>
+                    <Image Margin="10,0,0,0" x:Name="outputImage" Source="Images/insertimage.png" Height="250" Width="250" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <StackPanel  Margin="10,0,20,0" Width="230" Height="250" Background="#803276B9" HorizontalAlignment="Center">
                         <StackPanel>
                             <Label x:Name="TitleUser" Content="Biodata Pengguna" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" />
