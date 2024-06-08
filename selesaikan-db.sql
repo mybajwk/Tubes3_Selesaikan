@@ -9,17 +9,17 @@ SET NAMES utf8mb4;
 
 DROP TABLE IF EXISTS `biodata`;
 CREATE TABLE `biodata` (
-  `NIK` varchar(16) NOT NULL,
-  `nama` varchar(100) DEFAULT NULL,
-  `tempat_lahir` varchar(50) DEFAULT NULL,
+  `NIK` varchar(36) NOT NULL,
+  `nama` varchar(512) DEFAULT NULL,
+  `tempat_lahir` varchar(512) DEFAULT NULL,
   `tanggal_lahir` date DEFAULT NULL,
   `jenis_kelamin` enum('Laki-Laki','Perempuan') DEFAULT NULL,
-  `golongan_darah` varchar(5) DEFAULT NULL,
-  `alamat` varchar(255) DEFAULT NULL,
-  `agama` varchar(50) DEFAULT NULL,
+  `golongan_darah` varchar(36) DEFAULT NULL,
+  `alamat` varchar(512) DEFAULT NULL,
+  `agama` varchar(256) DEFAULT NULL,
   `status_perkawinan` enum('Belum Menikah','Menikah','Cerai') DEFAULT NULL,
-  `pekerjaan` varchar(100) DEFAULT NULL,
-  `kewarganegaraan` varchar(50) DEFAULT NULL,
+  `pekerjaan` varchar(512) DEFAULT NULL,
+  `kewarganegaraan` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`NIK`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
