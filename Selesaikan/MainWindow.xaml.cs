@@ -207,18 +207,26 @@ namespace Selesaikan
 
         private void btnLoadImage_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Select an image";
-            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.BMP)|*.png;*.jpeg;*.jpg;*.BMP";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Select an image",
+                Filter = "Image files (*.png;*.jpeg;*.jpg;*.BMP)|*.png;*.jpeg;*.jpg;*.BMP"
+            };
 
             if (openFileDialog.ShowDialog() == true)
             {
+                var imageStream = File.OpenRead(openFileDialog.FileName);
+                MemoryStream memoryStream = new MemoryStream();
+                imageStream.CopyTo(memoryStream);
+                memoryStream.Position = 0; // Reset position after copy
+                imageStream.Close(); // Close the file stream
+
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
-                bitmap.UriSource = new Uri(openFileDialog.FileName);
+                bitmap.StreamSource = memoryStream;
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.StreamSource = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
                 bitmap.EndInit();
+
                 displayImage.Source = bitmap;
                 setEntryImage(bitmap);
             }
@@ -239,17 +247,19 @@ namespace Selesaikan
 
         private Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
         {
-            if (bitmapImage.StreamSource == null)
+            if (bitmapImage.StreamSource == null || !bitmapImage.StreamSource.CanRead)
             {
-                throw new ArgumentNullException("StreamSource is null");
+                throw new ArgumentException("StreamSource is either null or cannot be read");
             }
 
-            using (MemoryStream outStream = new MemoryStream())
-            {
-                bitmapImage.StreamSource.CopyTo(outStream);
-                outStream.Seek(0, SeekOrigin.Begin); // Reset the stream position to the beginning
-                return new Bitmap(outStream);
-            }
+            // Copy the stream to keep the original stream intact
+            MemoryStream outStream = new MemoryStream();
+            bitmapImage.StreamSource.Seek(0, SeekOrigin.Begin); // Ensure we start from the beginning
+            bitmapImage.StreamSource.CopyTo(outStream);
+            outStream.Seek(0, SeekOrigin.Begin); // Reset the position to the beginning
+
+            // Create bitmap from copied stream
+            return new Bitmap(outStream);
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
@@ -339,8 +349,8 @@ namespace Selesaikan
                     
                     if (isMatchFound)
                     {
-                        setResultSidikJari(sidikJari);
                         setSimilarityPercentage(100.00);
+                        setResultSidikJari(sidikJari);
                         break;
                     }
                     else
@@ -365,8 +375,8 @@ namespace Selesaikan
 
                 if (tupleWithLeastHammingDistance != null)
                 {
-                    setResultSidikJari(tupleWithLeastHammingDistance.Item1);
                     setSimilarityPercentage(1 - (tupleWithLeastHammingDistance.Item2 / (entryBitmap.Width * entryBitmap.Height)));
+                    setResultSidikJari(tupleWithLeastHammingDistance.Item1);
                 }
             }
         }

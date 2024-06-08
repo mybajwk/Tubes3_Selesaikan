@@ -19,7 +19,7 @@
                             <Label x:Name="TitleUser" Content="Biodata Pengguna" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label Margin="5,0,0,0" x:Name="Nik" Content="NIK:"  Foreground="White" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="left" />
+                            <Label Margin="5,-5,0,0" x:Name="Nik" Content="NIK:"  Foreground="White" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="left" />
                             <Label Margin="5,-5,0,0" x:Name="NikUser" Foreground="White" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="left" />
                         </StackPanel>
                     <StackPanel Orientation="Horizontal">
