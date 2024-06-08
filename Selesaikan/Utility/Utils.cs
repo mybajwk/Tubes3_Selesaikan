@@ -2,13 +2,33 @@ namespace Selesaikan.Utility;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Media.Imaging;
+using Selesaikan.Models;
+using Selesaikan.Algorithm;
 
-    public class Utils
+
+public class Utils
     {
+        public static Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
+        {
+            if (bitmapImage.StreamSource == null || !bitmapImage.StreamSource.CanRead)
+            {
+                throw new ArgumentException("StreamSource is either null or cannot be read");
+            }
 
+            // Copy the stream to keep the original stream intact
+            MemoryStream outStream = new MemoryStream();
+            bitmapImage.StreamSource.Seek(0, SeekOrigin.Begin); // Ensure we start from the beginning
+            bitmapImage.StreamSource.CopyTo(outStream);
+            outStream.Seek(0, SeekOrigin.Begin); // Reset the position to the beginning
+
+            // Create bitmap from copied stream
+            return new Bitmap(outStream);
+        }
+        
         // Fungsi ConvertToGrayScale untuk mengubah gambar bitmap original menjadi bitmap grayscale
         public static Bitmap ConvertToGrayscale(Bitmap original)
         {
@@ -125,6 +145,23 @@ using System.Text.RegularExpressions;
             return sb.ToString();
         }
 
+        public static string preproccToASCII(BitmapImage image){
+            Bitmap tempEntryBitmap = Utils.BitmapImage2Bitmap(image);
+            Bitmap imageSidikJariGrayscale = Utils.ConvertToGrayscale(tempEntryBitmap);
+            Bitmap imageSidikJariBinary = Utils.ConvertToBinary(imageSidikJariGrayscale);
+            string imageSidikJariBinaryString = Utils.GetBinaryString(imageSidikJariBinary);
+            string imageSidikJariAscii = Utils.BinaryStringToASCII(imageSidikJariBinaryString);
+            return imageSidikJariAscii;
+        }
+
+        public static string preproccToBinary(BitmapImage image){
+            Bitmap tempEntryBitmap = Utils.BitmapImage2Bitmap(image);
+            Bitmap imageSidikJariGrayscale = Utils.ConvertToGrayscale(tempEntryBitmap);
+            Bitmap imageSidikJariBinary = Utils.ConvertToBinary(imageSidikJariGrayscale);
+            string imageSidikJariBinaryString = Utils.GetBinaryString(imageSidikJariBinary);
+            return imageSidikJariBinaryString;
+        }
+
         public static string[] GetChoosenBlockBinaryString(string binaryString, int block, int move)
         {
             if (binaryString.Length < block)
@@ -137,7 +174,6 @@ using System.Text.RegularExpressions;
             }
 
             List<string> sortedSubstrings = allSubstrings.OrderByDescending(s => CountTransitions(s)).ToList();
-
 
             return sortedSubstrings.Take(2).ToArray();
         }
@@ -220,6 +256,73 @@ using System.Text.RegularExpressions;
             }
 
             return new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+        }
+
+        public static (double,SidikJari) FindMatchSidikJari(BitmapImage input, List<SidikJari> dataSidikJari, bool isKMP){
+            string entryBinaryString = Utils.preproccToBinary(input);
+
+            string entryAscii = Utils.BinaryStringToASCII(entryBinaryString);
+
+            // Taking some blocks that is good for comparing
+            string[] goodEntryBinaryString = Utils.GetChoosenBlockBinaryString(entryBinaryString, 32, 8);
+
+            List<String> goodEntryAsciiString = new List<string>();
+            foreach (string binaryString in goodEntryBinaryString)
+            {
+                string goodascii = Utils.BinaryStringToASCII(binaryString);
+                goodEntryAsciiString.Add(goodascii);
+            }
+            
+            List<Tuple<SidikJari, int>> sidikJari_HammingDistance = new List<Tuple<SidikJari, int>>();
+            foreach (SidikJari sidikJari in dataSidikJari)
+            {
+                if (sidikJari.BerkasCitra != null)
+                {
+                    string filePath = Path.GetFullPath("../../../"+sidikJari.BerkasCitra);
+
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(filePath, UriKind.Absolute);
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                    bitmap.EndInit();
+
+                    string imageSidikJariAscii = Utils.preproccToASCII(bitmap);
+
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (isKMP)
+                        {
+                            if (Kmp.KmpSearch(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
+                            {
+                                return(100.00,sidikJari);
+                            }
+                        } else if (!isKMP) {
+                            
+                            if (Bm.Search(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
+                            {
+                                return(100.00,sidikJari);
+                            }
+                        }
+                    }
+
+                    try
+                    {
+                        int hdValue = Hd.Calculate(imageSidikJariAscii, entryAscii);
+                        sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari, hdValue));
+                    }
+                    catch (Exception _e)
+                    {
+                        Console.WriteLine("someeror in execption");
+                    }
+                    
+                }
+
+            }
+
+            var tupleWithLeastHammingDistance = sidikJari_HammingDistance.MinBy(t => t.Item2);
+            return(1 - (tupleWithLeastHammingDistance.Item2 / (input.Width * input.Height)),tupleWithLeastHammingDistance.Item1);
+            
         }
 
     }

@@ -181,6 +181,7 @@ namespace Selesaikan
             {
                 if (bio.Nama != null)
                 {
+                    Console.WriteLine(bio.Nama);
                     alLName.Add(blowfish.Decrypt(bio.Nama));
                 }
             }
@@ -274,23 +275,6 @@ namespace Selesaikan
             UpdateButtonColors();
         }
 
-        private Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
-        {
-            if (bitmapImage.StreamSource == null || !bitmapImage.StreamSource.CanRead)
-            {
-                throw new ArgumentException("StreamSource is either null or cannot be read");
-            }
-
-            // Copy the stream to keep the original stream intact
-            MemoryStream outStream = new MemoryStream();
-            bitmapImage.StreamSource.Seek(0, SeekOrigin.Begin); // Ensure we start from the beginning
-            bitmapImage.StreamSource.CopyTo(outStream);
-            outStream.Seek(0, SeekOrigin.Begin); // Reset the position to the beginning
-
-            // Create bitmap from copied stream
-            return new Bitmap(outStream);
-        }
-
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
             // Taking image from state from image loading
@@ -302,116 +286,9 @@ namespace Selesaikan
             stopwatch.Start();
             
             BitmapImage entryBitmapImage = getEntryImage();
-            Console.WriteLine(entryBitmapImage);
-
-            // Converting bitmap image type to bitmap
-            Bitmap entryBitmap = BitmapImage2Bitmap(entryBitmapImage);
-
-            // Converting bitmap type to Grayscale image
-            Bitmap entryGrayScaleImage = Utils.ConvertToGrayscale(entryBitmap);
-
-            // Converting grayscale image into binary image
-            Bitmap entryBinaryBitmap = Utils.ConvertToBinary(entryGrayScaleImage);
-
-            // Converting binary bitmap to binary string
-            string entryBinaryString = Utils.GetBinaryString(entryBinaryBitmap);
-
-            string entryAscii = Utils.BinaryStringToASCII(entryBinaryString);
-
-            // Taking some blocks that is good for comparing
-            string[] goodEntryBinaryString = Utils.GetChoosenBlockBinaryString(entryBinaryString, 32, 8);
-
-            // Change good entry binary string to ascii string
-            List<String> goodEntryAsciiString = new List<string>();
-            foreach (string binaryString in goodEntryBinaryString)
-            {
-                string goodascii = Utils.BinaryStringToASCII(binaryString);
-                goodEntryAsciiString.Add(goodascii);
-            }
-
-            // Comparing good ASCII string to database
-            List<SidikJari> dataSidikJari = _database.GetSidikJari();
-            
-            List<Tuple<SidikJari, int>> sidikJari_HammingDistance = new List<Tuple<SidikJari, int>>();
-            bool isMatchFound = false;
-            foreach (SidikJari sidikJari in dataSidikJari)
-            {
-                Console.WriteLine("okok", goodEntryAsciiString[0]);
-                if (sidikJari.BerkasCitra != null)
-                {
-                    string filePath = Path.GetFullPath("../../../"+sidikJari.BerkasCitra);
-                   Console.WriteLine(filePath);
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri(filePath, UriKind.Absolute);
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.StreamSource = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                    bitmap.EndInit();
-                    Bitmap tempEntryBitmap = BitmapImage2Bitmap(bitmap);
-
-                    // Converting bitmap type to Grayscale image
-                    Bitmap imageSidikJariGrayscale = Utils.ConvertToGrayscale(tempEntryBitmap);
-
-                    // Converting grayscale image into binary image
-                    Bitmap imageSidikJariBinary = Utils.ConvertToBinary(imageSidikJariGrayscale);
-
-                    // Converting binary bitmap to binary string
-                    string imageSidikJariBinaryString = Utils.GetBinaryString(imageSidikJariBinary);
-
-                    // Converting binary strng into ascii string
-                    string imageSidikJariAscii = Utils.BinaryStringToASCII(imageSidikJariBinaryString);
-
-                    for (int i = 0; i < 2; i++)
-                    {
-                        // If the pattern matching found
-                        if (currentActiveAlgorithm == "KMP")
-                        {
-                            if (Kmp.KmpSearch(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
-                            {
-                                Console.WriteLine("ketemuu");
-                                isMatchFound = true;
-                            }
-                        } else if (currentActiveAlgorithm == "BM") {
-                            
-                            if (Bm.Search(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
-                            {
-                                isMatchFound = true;
-                            }
-                        }
-                    }
-                    
-                    if (isMatchFound)
-                    {
-                        setSimilarityPercentage(100.00);
-                        setResultSidikJari(sidikJari);
-                        break;
-                    }
-                    else
-                    {
-                        try
-                        {
-                            int hdValue = Hd.Calculate(imageSidikJariAscii, entryAscii);
-                            sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari, hdValue));
-                        }
-                        catch (Exception _e)
-                        {
-                            Console.WriteLine("someeror in execption");
-                        }
-                    }
-                }
-
-            }
-            if (!isMatchFound)
-            {
-                // find tuple with least hamming distance
-                var tupleWithLeastHammingDistance = sidikJari_HammingDistance.MinBy(t => t.Item2);
-
-                if (tupleWithLeastHammingDistance != null)
-                {
-                    setSimilarityPercentage(1 - (tupleWithLeastHammingDistance.Item2 / (entryBitmap.Width * entryBitmap.Height)));
-                    setResultSidikJari(tupleWithLeastHammingDistance.Item1);
-                }
-            }
+            (double simil, SidikJari result) = Utils.FindMatchSidikJari(entryBitmapImage,_database.GetSidikJari(),currentActiveAlgorithm=="KMP");
+            setResultSidikJari(result);
+            setSimilarityPercentage(simil);
         }
 
         private void UpdateButtonColors()
