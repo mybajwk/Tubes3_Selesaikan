@@ -265,8 +265,10 @@ namespace Selesaikan
             
             BitmapImage entryBitmapImage = getEntryImage();
             (double simil, SidikJari result) = FindMatchSidikJari(entryBitmapImage,_database.GetSidikJari(),currentActiveAlgorithm=="KMP");
-            setSimilarityPercentage(simil);
-            setResultSidikJari(result);
+            if(simil>70){
+                setSimilarityPercentage(simil);
+                setResultSidikJari(result);
+            }
         }
 
         private void UpdateButtonColors()
@@ -389,7 +391,7 @@ namespace Selesaikan
             }
 
             var tupleWithLeastHammingDistance = sidikJari_HammingDistance.MinBy(t => t.Item2);
-            return(1 - (tupleWithLeastHammingDistance.Item2 / (input.Width * input.Height)),tupleWithLeastHammingDistance.Item1);
+            return(100*(1 - (tupleWithLeastHammingDistance.Item2 / (input.Width * input.Height))),tupleWithLeastHammingDistance.Item1);
         }
     }
 }
