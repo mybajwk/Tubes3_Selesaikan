@@ -329,7 +329,7 @@ namespace Selesaikan
             string entryAscii = Utils.BinaryStringToASCII(entryBinaryString);
 
             // Taking some blocks that is good for comparing
-            string[] goodEntryBinaryString = Utils.GetChoosenBlockBinaryString(entryBinaryString, 32, 8);
+            string[] goodEntryBinaryString = Utils.GetChoosenBlockBinaryString(entryBinaryString, 48, 8);
 
             List<String> goodEntryAsciiString = new List<string>();
             foreach (string binaryString in goodEntryBinaryString)
