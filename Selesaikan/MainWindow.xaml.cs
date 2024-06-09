@@ -161,7 +161,7 @@ namespace Selesaikan
 
         public void setResultSidikJari(SidikJari sidikJari)
         {
-            stopwatch.Stop();
+            this.StopStopwatch();
             Console.WriteLine("KNTL");
             double elapsedMilliseconds = stopwatch.Elapsed.TotalMilliseconds;
 
@@ -261,11 +261,10 @@ namespace Selesaikan
                 MessageBox.Show("Please upload an image first");
                 return;
             }
-            stopwatch.Start();
+            this.StartStopwatch();
             
             BitmapImage entryBitmapImage = getEntryImage();
             (double simil, SidikJari result) = FindMatchSidikJari(entryBitmapImage,_database.GetSidikJari(),currentActiveAlgorithm=="KMP");
-            setResultSidikJari(result);
             setSimilarityPercentage(simil);
             setResultSidikJari(result);
         }
