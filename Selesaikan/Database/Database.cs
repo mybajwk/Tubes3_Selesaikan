@@ -18,7 +18,6 @@ namespace Selesaikan.Database
             _connectionString = loadedConfig.DatabaseConnectionString;
             dataSidikJari = new List<SidikJari>();
             dataBiodata = new Dictionary<string, Biodata>();
-            Console.WriteLine("KNT");
         }
 
         public List<SidikJari> GetSidikJari()
@@ -84,7 +83,7 @@ namespace Selesaikan.Database
                             byte[] key = Encoding.UTF8.GetBytes(loadedConfig.Key);
                             Blowfish blowfish = new Blowfish(key);
 
-                            string nama = reader.GetString(1);
+                            string nama = blowfish.Decrypt(reader.GetString(1));
                             dataBiodata.Add(nama,new Biodata()
                             {
                                 Nik = blowfish.Decrypt(reader.GetString(0)),
@@ -99,7 +98,6 @@ namespace Selesaikan.Database
                                 Pekerjaan = blowfish.Decrypt(reader.GetString(9)),
                                 Kewarganegaraan = blowfish.Decrypt(reader.GetString(10)),
                             });
-                            Console.WriteLine(blowfish.Decrypt(reader.GetString(1)));
                         }
                     }
                 }
