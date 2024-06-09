@@ -1832,24 +1832,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Asus\\.nuget\\packages\\": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
       "projectName": "Selesaikan",
-      "projectPath": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
-      "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Asus\\Desktop\\ITB PENTING - Copy\\semester 4\\Tubes3_Selesaikan\\Selesaikan\\obj\\",
+      "projectPath": "C:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1905,7 +1907,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

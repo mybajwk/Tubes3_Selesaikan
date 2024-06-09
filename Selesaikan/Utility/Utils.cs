@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 using Selesaikan.Models;
 using Selesaikan.Algorithm;
-
+using System.Windows;
 
 public class Utils
     {
@@ -68,50 +68,6 @@ public class Utils
             return binary;
         }
 
-        // Fungsi BitmapToASCII untuk mengubah gambar bitmap menjadi string ASCII
-        public static string BitmapToASCII(Bitmap Binary, int row, int col)
-        {
-            int widthBox = col * 8;
-            int heightBox = row;
-            int totalPixel = widthBox * heightBox;
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < Binary.Height; i += heightBox)
-            {
-                if (i + heightBox < Binary.Height)
-                {
-                    break;
-                }
-
-                for (int j = 0; j < Binary.Width; j += widthBox)
-                {
-                    if (j + widthBox < Binary.Width)
-                    {
-                        break;
-                    }
-
-                    StringBuilder buf = new StringBuilder();
-                    for (int k = i; k < i + heightBox; k++)
-                    {
-                        for (int l = j; l < j + widthBox; l++)
-                        {
-                            Color color = Binary.GetPixel(k, l);
-                            int binaryValue = color.R == 0 ? 0 : 1;
-                            buf.Append(binaryValue);
-                        }
-                    }
-
-                    for (int k = 0; k < totalPixel; k += 8)
-                    {
-                        string byteString = buf.ToString().Substring(k, 8);
-                        sb.Append(Convert.ToChar(Convert.ToInt32(byteString, 2)));
-                    }
-                }
-            }
-
-            return sb.ToString();
-        }
-
         // Fungsi GetBinaryString untuk mengubah gambar bitmap binary menjadi string binary
         public static string GetBinaryString(Bitmap binary)
         {
@@ -145,21 +101,43 @@ public class Utils
             return sb.ToString();
         }
 
-        public static string preproccToASCII(BitmapImage image){
-            Bitmap tempEntryBitmap = Utils.BitmapImage2Bitmap(image);
-            Bitmap imageSidikJariGrayscale = Utils.ConvertToGrayscale(tempEntryBitmap);
-            Bitmap imageSidikJariBinary = Utils.ConvertToBinary(imageSidikJariGrayscale);
-            string imageSidikJariBinaryString = Utils.GetBinaryString(imageSidikJariBinary);
-            string imageSidikJariAscii = Utils.BinaryStringToASCII(imageSidikJariBinaryString);
-            return imageSidikJariAscii;
-        }
-
         public static string preproccToBinary(BitmapImage image){
-            Bitmap tempEntryBitmap = Utils.BitmapImage2Bitmap(image);
+            Bitmap tempEntryBitmap = ResizeImage(Utils.BitmapImage2Bitmap(image),96,103);
             Bitmap imageSidikJariGrayscale = Utils.ConvertToGrayscale(tempEntryBitmap);
             Bitmap imageSidikJariBinary = Utils.ConvertToBinary(imageSidikJariGrayscale);
             string imageSidikJariBinaryString = Utils.GetBinaryString(imageSidikJariBinary);
             return imageSidikJariBinaryString;
+        }
+        public static string PreproccToASCII(BitmapImage image){
+            
+            string imageSidikJariAscii = BinaryStringToASCII(preproccToBinary(image));
+            return imageSidikJariAscii;
+        }
+
+        public static Bitmap ResizeImage(Bitmap originalBitmap, int newWidth, int newHeight)
+        {
+            // Check if the original image already has the desired dimensions
+            if (originalBitmap.Width == newWidth && originalBitmap.Height == newHeight)
+            {
+                // If the dimensions are already the same, return a copy of the original image
+                return new Bitmap(originalBitmap);
+            }
+
+            // Create a new bitmap with the desired dimensions
+            Bitmap resizedBitmap = new Bitmap(newWidth, newHeight);
+            
+            // Create a graphics object for the new bitmap
+            using (Graphics graphics = Graphics.FromImage(resizedBitmap))
+            {
+                // Set the interpolation mode to high quality
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+
+                // Draw the original image onto the new bitmap with the desired dimensions
+                graphics.DrawImage(originalBitmap, 0, 0, newWidth, newHeight);
+            }
+
+            // Return the resized bitmap
+            return resizedBitmap;
         }
 
         public static string[] GetChoosenBlockBinaryString(string binaryString, int block, int move)
@@ -257,72 +235,4 @@ public class Utils
 
             return new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
         }
-
-        public static (double,SidikJari) FindMatchSidikJari(BitmapImage input, List<SidikJari> dataSidikJari, bool isKMP){
-            string entryBinaryString = Utils.preproccToBinary(input);
-
-            string entryAscii = Utils.BinaryStringToASCII(entryBinaryString);
-
-            // Taking some blocks that is good for comparing
-            string[] goodEntryBinaryString = Utils.GetChoosenBlockBinaryString(entryBinaryString, 32, 8);
-
-            List<String> goodEntryAsciiString = new List<string>();
-            foreach (string binaryString in goodEntryBinaryString)
-            {
-                string goodascii = Utils.BinaryStringToASCII(binaryString);
-                goodEntryAsciiString.Add(goodascii);
-            }
-            
-            List<Tuple<SidikJari, int>> sidikJari_HammingDistance = new List<Tuple<SidikJari, int>>();
-            foreach (SidikJari sidikJari in dataSidikJari)
-            {
-                if (sidikJari.BerkasCitra != null)
-                {
-                    string filePath = Path.GetFullPath("../../../"+sidikJari.BerkasCitra);
-
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri(filePath, UriKind.Absolute);
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.StreamSource = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                    bitmap.EndInit();
-
-                    string imageSidikJariAscii = Utils.preproccToASCII(bitmap);
-
-                    for (int i = 0; i < 2; i++)
-                    {
-                        if (isKMP)
-                        {
-                            if (Kmp.KmpSearch(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
-                            {
-                                return(100.00,sidikJari);
-                            }
-                        } else if (!isKMP) {
-                            
-                            if (Bm.Search(imageSidikJariAscii, goodEntryAsciiString[i]) != -1)
-                            {
-                                return(100.00,sidikJari);
-                            }
-                        }
-                    }
-
-                    try
-                    {
-                        int hdValue = Hd.Calculate(imageSidikJariAscii, entryAscii);
-                        sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari, hdValue));
-                    }
-                    catch (Exception _e)
-                    {
-                        Console.WriteLine("someeror in execption");
-                    }
-                    
-                }
-
-            }
-
-            var tupleWithLeastHammingDistance = sidikJari_HammingDistance.MinBy(t => t.Item2);
-            return(1 - (tupleWithLeastHammingDistance.Item2 / (input.Width * input.Height)),tupleWithLeastHammingDistance.Item1);
-            
-        }
-
     }

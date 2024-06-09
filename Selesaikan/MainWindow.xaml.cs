@@ -31,11 +31,10 @@ namespace Selesaikan
         private SidikJari resultSidikJari;
         private Biodata resultBiodata;
         private Stopwatch stopwatch;
-
         private double searchTime;
         private double similarityPercentage;
-
         private bool hasUserUpload = false;
+        private Dictionary<string,string> cacheASCII = new Dictionary<string, string>();
 
         public void StartStopwatch()
         {
@@ -82,7 +81,7 @@ namespace Selesaikan
             if (!loadedConfig.IsEncrypted)
             {
 
-                List<Biodata> allBiodata = _database.GetAllBiodata();
+                Dictionary<string,Biodata> allBiodata = _database.GetAllBiodata();
                 _database.TruncateBiodata();
                 _database.SaveAllBiodata(allBiodata);
                 loadedConfig.IsEncrypted = true;
@@ -92,22 +91,18 @@ namespace Selesaikan
 
         public void UpdateResultBiodata()
         {
-            AppConfig loadedConfig = Config.Config.LoadConfiguration("config.json");
-            byte[] key = Encoding.UTF8.GetBytes(loadedConfig.Key);
-            Blowfish blowfish = new Blowfish(key);
-
 
             NamaUser.Content = resultSidikJari.Nama;
-            NikUser.Content = blowfish.Decrypt(resultBiodata.Nik);
-            TempatLahirUser.Content = blowfish.Decrypt(resultBiodata.TempatLahir);
+            NikUser.Content = resultBiodata.Nik;
+            TempatLahirUser.Content = resultBiodata.TempatLahir;
             TanggalLahirUser.Content = resultBiodata.TanggalLahir;
             JenisKelaminUser.Content = resultBiodata.JenisKelamin;
-            GolonganDarahUser.Content = blowfish.Decrypt(resultBiodata.GolonganDarah);
-            AlamatUser.Content = blowfish.Decrypt(resultBiodata.Alamat);
-            AgamaUser.Content = blowfish.Decrypt(resultBiodata.Agama);
+            GolonganDarahUser.Content = resultBiodata.GolonganDarah;
+            AlamatUser.Content = resultBiodata.Alamat;
+            AgamaUser.Content = resultBiodata.Agama;
             StatusPerkawinanUser.Content = resultBiodata.StatusPerkawinan;
-            PekerjaanUser.Content = blowfish.Decrypt(resultBiodata.Pekerjaan);
-            KewarganegaraanUser.Content = blowfish.Decrypt(resultBiodata.Kewarganegaraan);
+            PekerjaanUser.Content = resultBiodata.Pekerjaan;
+            KewarganegaraanUser.Content = resultBiodata.Kewarganegaraan;
         }
 
         public void UpdatePerformanceResult()
@@ -172,32 +167,14 @@ namespace Selesaikan
             stopwatch.Reset();
 
             resultSidikJari = sidikJari;
-            List<Biodata> allBiodata = _database.GetAllBiodata();
-            List<string> alLName = new List<string>();
-            AppConfig loadedConfig = Config.Config.LoadConfiguration("config.json");
-            byte[] key = Encoding.UTF8.GetBytes(loadedConfig.Key);
-            Blowfish blowfish = new Blowfish(key);
-            foreach (Biodata bio in allBiodata)
-            {
-                if (bio.Nama != null)
-                {
-                    Console.WriteLine(bio.Nama);
-                    alLName.Add(blowfish.Decrypt(bio.Nama));
-                }
-            }
+            List<string> alLName = _database.GetAllBiodata().Values.Select(obj => obj.Nama).ToList();
+            MessageBox.Show(alLName[0]);
 
             string nama = Utils.MatchTexts(sidikJari.Nama, alLName);
             if (nama != "")
             {
-                Console.WriteLine("yey");
-                Console.WriteLine(nama);
-                Biodata bio = _database.GetBiodata(blowfish.Encrypt(nama));
+                Biodata bio = _database.GetBiodata(nama);
                 setResultBiodata(bio);
-                if (bio.Nama != null)
-                {
-                    Console.WriteLine("yey");
-                }
-                Console.WriteLine(sidikJari.Nama);
                 UpdateResultBiodata();
                 UpdateResultSidikJari();
                 UpdatePerformanceResult();
@@ -286,7 +263,7 @@ namespace Selesaikan
             stopwatch.Start();
             
             BitmapImage entryBitmapImage = getEntryImage();
-            (double simil, SidikJari result) = Utils.FindMatchSidikJari(entryBitmapImage,_database.GetSidikJari(),currentActiveAlgorithm=="KMP");
+            (double simil, SidikJari result) = FindMatchSidikJari(entryBitmapImage,_database.GetSidikJari(),currentActiveAlgorithm=="KMP");
             setResultSidikJari(result);
             setSimilarityPercentage(simil);
         }
@@ -342,6 +319,75 @@ namespace Selesaikan
                     MessageBox.Show("Please drop a BMP file.");
                 }
             }
+        }
+
+        public (double,SidikJari) FindMatchSidikJari(BitmapImage input, List<SidikJari> dataSidikJari, bool isKMP){
+            string entryBinaryString = Utils.preproccToBinary(input);
+
+            string entryAscii = Utils.BinaryStringToASCII(entryBinaryString);
+
+            // Taking some blocks that is good for comparing
+            string[] goodEntryBinaryString = Utils.GetChoosenBlockBinaryString(entryBinaryString, 32, 8);
+
+            List<String> goodEntryAsciiString = new List<string>();
+            foreach (string binaryString in goodEntryBinaryString)
+            {
+                string goodascii = Utils.BinaryStringToASCII(binaryString);
+                Console.WriteLine(goodascii);
+                goodEntryAsciiString.Add(goodascii);
+            }
+            
+            List<Tuple<SidikJari, int>> sidikJari_HammingDistance = new List<Tuple<SidikJari, int>>();
+            foreach (SidikJari sidikJari in dataSidikJari)
+            {
+                if (sidikJari.BerkasCitra != null)
+                {
+                    string ASCIIstr;
+                    if(!cacheASCII.TryGetValue(sidikJari.BerkasCitra,out ASCIIstr)){
+                        string filePath = Path.GetFullPath(sidikJari.BerkasCitra);
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.UriSource = new Uri(filePath, UriKind.Absolute);
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.StreamSource = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                        bitmap.EndInit();
+
+                        ASCIIstr = Utils.PreproccToASCII(bitmap);
+                        cacheASCII.Add(sidikJari.BerkasCitra,ASCIIstr);
+                    }
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (isKMP)
+                        {
+                            if (Kmp.KmpSearch(ASCIIstr, goodEntryAsciiString[i]) != -1)
+                            {
+                                return(100.00,sidikJari);
+                            }
+                        }else{
+                            
+                            if (Bm.Search(ASCIIstr, goodEntryAsciiString[i]) != -1)
+                            {
+                                return(100.00,sidikJari);
+                            }
+                        }
+                    }
+
+                    try
+                    {
+                        int hdValue = Hd.Calculate(ASCIIstr, entryAscii);
+                        sidikJari_HammingDistance.Add(new Tuple<SidikJari, int>(sidikJari, hdValue));
+                    }
+                    catch (Exception _e)
+                    {
+                        Console.WriteLine("someeror in execption");
+                    }
+                    
+                }
+
+            }
+
+            var tupleWithLeastHammingDistance = sidikJari_HammingDistance.MinBy(t => t.Item2);
+            return(1 - (tupleWithLeastHammingDistance.Item2 / (input.Width * input.Height)),tupleWithLeastHammingDistance.Item1);
         }
     }
 }
