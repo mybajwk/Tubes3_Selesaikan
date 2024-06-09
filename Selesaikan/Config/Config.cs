@@ -15,6 +15,7 @@ public class Config
     public static AppConfig LoadConfiguration(string filePath)
     {
         string json = File.ReadAllText(filePath);
+        Console.WriteLine(Directory.GetCurrentDirectory());
         return JsonConvert.DeserializeObject<AppConfig>(json);
     }
 }

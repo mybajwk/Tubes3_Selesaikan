@@ -81,13 +81,15 @@ namespace Selesaikan
             if (!loadedConfig.IsEncrypted)
             {
 
-                Dictionary<string,Biodata> allBiodata = _database.GetAllBiodata();
+                List<Biodata> allBiodata = _database.GetAllBiodata();
+                MessageBox.Show(""+allBiodata.Count());
                 _database.TruncateBiodata();
+                MessageBox.Show("ADW");
                 _database.SaveAllBiodata(allBiodata);
                 loadedConfig.IsEncrypted = true;
                 Config.Config.SaveConfiguration(loadedConfig, "config.json");
             }
-            Console.WriteLine("Work: "+Directory.GetCurrentDirectory());
+            MessageBox.Show(Directory.GetCurrentDirectory());
         }
 
         public void UpdateResultBiodata()
@@ -169,7 +171,7 @@ namespace Selesaikan
             stopwatch.Reset();
 
             resultSidikJari = sidikJari;
-            List<string> alLName = _database.GetAllBiodata().Values.Select(obj => obj.Nama).ToList();
+            List<string> alLName = _database.GetAllBiodataDecrypted().Values.Select(obj => obj.Nama).ToList();
 
             string nama = Utils.MatchTexts(sidikJari.Nama, alLName);
             if (nama != "")
