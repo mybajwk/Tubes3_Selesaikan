@@ -82,14 +82,11 @@ namespace Selesaikan
             {
 
                 List<Biodata> allBiodata = _database.GetAllBiodata();
-                MessageBox.Show(""+allBiodata.Count());
                 _database.TruncateBiodata();
-                MessageBox.Show("ADW");
                 _database.SaveAllBiodata(allBiodata);
                 loadedConfig.IsEncrypted = true;
                 Config.Config.SaveConfiguration(loadedConfig, "config.json");
             }
-            MessageBox.Show(Directory.GetCurrentDirectory());
         }
 
         public void UpdateResultBiodata()
