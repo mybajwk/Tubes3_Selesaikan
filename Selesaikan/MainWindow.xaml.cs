@@ -99,7 +99,7 @@ namespace Selesaikan
             TanggalLahirUser.Content = resultBiodata.TanggalLahir;
             JenisKelaminUser.Content = resultBiodata.JenisKelamin;
             GolonganDarahUser.Content = resultBiodata.GolonganDarah;
-            AlamatUser.Content = resultBiodata.Alamat;
+            myTextBlock.Text = resultBiodata.Alamat;
             AgamaUser.Content = resultBiodata.Agama;
             StatusPerkawinanUser.Content = resultBiodata.StatusPerkawinan;
             PekerjaanUser.Content = resultBiodata.Pekerjaan;
