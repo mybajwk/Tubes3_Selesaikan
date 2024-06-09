@@ -87,6 +87,7 @@ namespace Selesaikan
                 loadedConfig.IsEncrypted = true;
                 Config.Config.SaveConfiguration(loadedConfig, "config.json");
             }
+            Console.WriteLine("Work: "+Directory.GetCurrentDirectory());
         }
 
         public void UpdateResultBiodata()
@@ -161,6 +162,7 @@ namespace Selesaikan
         public void setResultSidikJari(SidikJari sidikJari)
         {
             stopwatch.Stop();
+            Console.WriteLine("KNTL");
             double elapsedMilliseconds = stopwatch.Elapsed.TotalMilliseconds;
 
             setSearchTime(elapsedMilliseconds);
@@ -168,7 +170,6 @@ namespace Selesaikan
 
             resultSidikJari = sidikJari;
             List<string> alLName = _database.GetAllBiodata().Values.Select(obj => obj.Nama).ToList();
-            MessageBox.Show(alLName[0]);
 
             string nama = Utils.MatchTexts(sidikJari.Nama, alLName);
             if (nama != "")
@@ -266,6 +267,7 @@ namespace Selesaikan
             (double simil, SidikJari result) = FindMatchSidikJari(entryBitmapImage,_database.GetSidikJari(),currentActiveAlgorithm=="KMP");
             setResultSidikJari(result);
             setSimilarityPercentage(simil);
+            setResultSidikJari(result);
         }
 
         private void UpdateButtonColors()
@@ -345,6 +347,7 @@ namespace Selesaikan
                     string ASCIIstr;
                     if(!cacheASCII.TryGetValue(sidikJari.BerkasCitra,out ASCIIstr)){
                         string filePath = Path.GetFullPath(sidikJari.BerkasCitra);
+                        Console.WriteLine(filePath);
                         BitmapImage bitmap = new BitmapImage();
                         bitmap.BeginInit();
                         bitmap.UriSource = new Uri(filePath, UriKind.Absolute);
