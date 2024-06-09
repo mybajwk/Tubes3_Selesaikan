@@ -55,6 +55,7 @@ cd src
 6. Terlebih dahulu ingat, untuk menyimpan foto-foto sidik jari dengan folder name `test` pada folder `Selesaikan` sejajar dengan `MainWindow.xaml`. Di dalam folder _test_ ini dapat disimpan gambar gambar sidik jari. Path ini dapat disesuaikan secara relatif dengan data sidik jari yang tersimpan pada basis data Sidik Jari.
 
 7. Lakukan run aplikasi dengan melakukan command berikut untuk masuk ke folder `Selesaikan` setelah memasuki folder `src`. Sebelum itu, pastikan bahwa file `config.json` memiliki `isEncrypted: false` jika basis data Biodata belum pernah dienkripsi. Jika sudah pernah, seharusnya `isEncrypted` sudah otomatis menjadi true.
+![image](https://github.com/mybajwk/Tubes3_Selesaikan/assets/113753352/e1493f9c-51be-417d-b845-abc0766b317d)
 ```
 cd Selesaikan
 dotnet build
@@ -71,3 +72,6 @@ dotnet run
 1. 13522029 Ignatius Jhon Hezkiel Chan
 2. 13522045 Elbert Chailes
 3. 13522077 Enrique Yanuar
+
+## Overview Aplikasi
+![messageImage_1717930696952](https://github.com/mybajwk/Tubes3_Selesaikan/assets/113753352/d2ce6ae7-151b-4ae3-85c2-22e78b5d7d8c)
