@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj": {}
+    "C:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj": {}
   },
   "projects": {
-    "c:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj": {
+    "C:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
         "projectName": "Selesaikan",
-        "projectPath": "c:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
+        "projectPath": "C:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\Selesaikan.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\obj\\",
+        "outputPath": "C:\\Users\\user\\Documents\\Tubes3_Selesaikan\\Selesaikan\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
