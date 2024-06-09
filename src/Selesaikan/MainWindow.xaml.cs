@@ -390,7 +390,7 @@ namespace Selesaikan
             }
 
             var tupleWithLeastHammingDistance = sidikJari_HammingDistance.MinBy(t => t.Item2);
-            return(100*(1 - (tupleWithLeastHammingDistance.Item2 / (input.Width * input.Height))),tupleWithLeastHammingDistance.Item1);
+            return(100*(1 - (tupleWithLeastHammingDistance.Item2 / entryAscii.Length)),tupleWithLeastHammingDistance.Item1);
         }
     }
 }
