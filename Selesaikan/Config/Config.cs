@@ -9,12 +9,12 @@ public class Config
     public static void SaveConfiguration(AppConfig config, string filePath)
     {
         string json = JsonConvert.SerializeObject(config, Formatting.Indented);
-        File.WriteAllText("../../../"+filePath, json);
+        File.WriteAllText(filePath, json);
     }
     
     public static AppConfig LoadConfiguration(string filePath)
     {
-        string json = File.ReadAllText("../../../"+filePath);
+        string json = File.ReadAllText(filePath);
         return JsonConvert.DeserializeObject<AppConfig>(json);
     }
 }

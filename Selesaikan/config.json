@@ -1,5 +1,5 @@
 {
   "DatabaseConnectionString": "Server=127.0.0.1;Port=9001;Database=selesaikan-db;Uid=selesaikan;Pwd=selesaikan;",
-  "IsEncrypted": true,
+  "IsEncrypted": false,
   "Key": "Selesaikan-db"
 }

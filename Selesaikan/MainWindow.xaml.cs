@@ -287,8 +287,8 @@ namespace Selesaikan
             
             BitmapImage entryBitmapImage = getEntryImage();
             (double simil, SidikJari result) = Utils.FindMatchSidikJari(entryBitmapImage,_database.GetSidikJari(),currentActiveAlgorithm=="KMP");
-            setResultSidikJari(result);
             setSimilarityPercentage(simil);
+            setResultSidikJari(result);
         }
 
         private void UpdateButtonColors()

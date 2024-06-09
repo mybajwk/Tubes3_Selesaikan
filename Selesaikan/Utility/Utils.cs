@@ -278,7 +278,7 @@ public class Utils
             {
                 if (sidikJari.BerkasCitra != null)
                 {
-                    string filePath = Path.GetFullPath("../../../"+sidikJari.BerkasCitra);
+                    string filePath = Path.GetFullPath(sidikJari.BerkasCitra);
 
                     BitmapImage bitmap = new BitmapImage();
                     bitmap.BeginInit();
